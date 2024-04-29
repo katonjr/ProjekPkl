@@ -36,7 +36,7 @@
                     </span>
                     <div>
                         <span>Phone</span>
-                        <p class="text">+6285546294372</p>
+                        <p class="text">{{ $datas->phone }}</p>
                     </div>
                 </div>
                 <div class="contact-item">
@@ -45,7 +45,7 @@
                     </span>
                     <div>
                         <span>Address</span>
-                        <p class="text">Pilangkenceng, Kab.Madiun</p>
+                        <p class="text">{{ $datas->address }}</p>
                     </div>
                 </div>
                 <div class="contact-item">
@@ -53,14 +53,12 @@
                         <i class="fa fa-envelope"></i>
                     </span>
                     <div>
-                        <span>Message</span>
-                        <p class="text">katongalih6@gmail.com</p>
+                        <span>Email</span>
+                        <p class="text">{{ $datas->email }}</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- end of contact section -->
-
 @endsection

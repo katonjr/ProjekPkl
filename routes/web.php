@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -21,9 +22,12 @@ Route::get('/about', function () {
 });
 
 
-Route::get('/contact', function () {
-    return view('contact');
-});
+// Route::get('/contact', function () {
+//     return view('contact');
+// });
+
+Route::get('/contact', [ContactController::class,'index']);
+
 
 
 
@@ -31,6 +35,9 @@ Route::get('/detail', function () {
     return view('detail');
 });
 
+
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::resource('Contact', ContactController::class);
