@@ -10,6 +10,30 @@
         </div>
     </div>
 </header>
+<style>
+    .contact-row {
+    display: flex;
+    flex-direction: row;
+    padding: 0 20%;
+}
+
+.contact-left,
+.contact-right {
+    flex: 1;
+}
+
+@media (max-width: 768px) {
+    .contact-row {
+        flex-direction: column;
+    }
+
+    .contact-left,
+    .contact-right {
+        flex: none;
+    }
+}
+
+</style>
 <!-- header -->
 
 <!-- contact section -->
@@ -59,6 +83,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 </section>
 @endsection
