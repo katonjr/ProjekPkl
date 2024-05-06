@@ -74,7 +74,7 @@
     </div>
     <div class="table-container">
         <td colspan="5">
-            <button type="button" class="btn btn-primary mb-3"> Tambah + </button>
+            <a href="addfeaturedplace" class="btn btn-primary mb-3" > Tambah + </a>
         </td>
         <table class="table">
             <thead>
@@ -91,7 +91,7 @@
                 @foreach ( $data as $row)
                 <tr>
                     <th scope="row">{{ $row->id }}</th>
-                    <td>{{ $row->image }}</td>
+                    <td><img src="{{ asset('/uploads/'.$row->image) }}" alt=""></td>
                     <td>{{ $row->tempat }}</td>
                     <td>{{ $row->deskripsi }}</td>
                     <td>

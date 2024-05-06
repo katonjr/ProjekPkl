@@ -9,4 +9,5 @@ class FeaturedPlace extends Model
 {
     use HasFactory;
     protected $table = 'featured_place';
+    protected $guarded = [];
 }

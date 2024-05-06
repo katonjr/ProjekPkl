@@ -18,6 +18,39 @@ class FeaturedPlaceController extends Controller
         return view('admin.featuredplace',compact('data'));
     }
 
+    public function addfeaturedplace(){
+        return view('admin.addfeaturedplace');
+    }
+
+
+    public function insertdatafeatured(Request $request){
+
+    //     dd($request->all());
+    //    $place= FeaturedPlace::create($request->all());
+    //     return redirect()->back();
+
+        $FeaturedPlace = new FeaturedPlace;
+        $FeaturedPlace->tempat = $request->input('tempat');
+        $FeaturedPlace->deskripsi = $request->input('deskripsi');
+
+        if($request->hasfile('image'))
+        {
+            $file = $request->file('image');
+            $extenstion = $file->getClientOriginalExtension();
+            $filename = time().'.'.$extenstion;
+            $file->move('uploads', $filename);
+            $FeaturedPlace->image = $filename;
+        }
+
+        $FeaturedPlace->save();
+        return redirect('/featuredplace')->with('message','Image Upload Successfully');
+
+    }
+
+
+
+
+
     /**
      * Show the form for creating a new resource.
      *
