@@ -95,8 +95,12 @@
                     <td>{{ $row->tempat }}</td>
                     <td>{{ $row->deskripsi }}</td>
                     <td>
-                        <button type="button" class="btn btn-warning">Edit</button>
-                        <button type="button" class="btn btn-danger">Delete</button>
+                        <a href="{{ route('tampildatafeatured', $row->id) }}" class="btn btn-warning">Edit</a>
+                        <form action="{{ route('admin.destroy', $row->id) }}" method="POST" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach

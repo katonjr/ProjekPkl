@@ -23,6 +23,7 @@ class FeaturedPlaceController extends Controller
     }
 
 
+    // upload image function
     public function insertdatafeatured(Request $request){
 
     //     dd($request->all());
@@ -43,9 +44,42 @@ class FeaturedPlaceController extends Controller
         }
 
         $FeaturedPlace->save();
-        return redirect('/featuredplace')->with('message','Image Upload Successfully');
+        return redirect('/featuredplace')->with('success','Image Upload Successfully');
 
     }
+
+
+    // Tampil Data Function
+    public function tampildatafeatured($id){
+    $data = FeaturedPlace::find($id);
+    // dd($data);
+    return view('admin.viewfeaturedplace', compact('data'));
+    }
+
+    //Update Data Function
+    public function updatedatafeatured(Request $request, $id){
+        $FeaturedPlace = FeaturedPlace::find($id);
+        $FeaturedPlace->tempat = $request->input('tempat');
+        $FeaturedPlace->deskripsi = $request->input('deskripsi');
+
+        if($request->hasfile('image'))
+        {
+            $file = $request->file('image');
+            $extenstion = $file->getClientOriginalExtension();
+            $filename = time().'.'.$extenstion;
+            $file->move('uploads', $filename);
+            $FeaturedPlace->image = $filename;
+        }
+
+        $FeaturedPlace->save();
+
+        return redirect('/featuredplace')->with('success','Data Update Successfully');
+
+
+    }
+
+
+
 
 
 
@@ -114,6 +148,9 @@ class FeaturedPlaceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $featuredPlace = FeaturedPlace::findOrFail($id);
+        $featuredPlace->delete();
+        return redirect('/featuredplace')->with('success', 'Data Successfully Deleted');
     }
+
 }
