@@ -16,7 +16,7 @@ class CreateDestinyTable extends Migration
         Schema::create('destiny', function (Blueprint $table) {
             $table->id();
             $table->string('image');
-            $table->text('deksripsi');
+            $table->text('deskripsi');
             $table->timestamps();
         });
     }

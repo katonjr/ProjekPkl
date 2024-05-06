@@ -17,7 +17,7 @@ class CreateFeaturedPlaceTable extends Migration
             $table->id();
             $table->string('image');
             $table->string('tempat');
-            $table->text('deksripsi');
+            $table->text('deskripsi');
             $table->timestamps();
         });
     }

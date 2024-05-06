@@ -39,5 +39,7 @@ Route::get('/detail', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('Contact', ContactController::class);
+
+Route::get('featuredplace', [App\Http\Controllers\FeaturedPlaceController::class, 'index']);
