@@ -88,9 +88,9 @@
             </thead>
             <tbody>
 
-                @foreach ( $data as $row)
+                @foreach ( $data as $key => $row)
                 <tr>
-                    <th scope="row">{{ $row->id }}</th>
+                    <th scope="row">{{ $key + 1 }}</th>
                     <td><img src="{{ asset('/uploads/'.$row->image) }}" alt=""></td>
                     <td>{{ $row->tempat }}</td>
                     <td>{{ $row->deskripsi }}</td>
