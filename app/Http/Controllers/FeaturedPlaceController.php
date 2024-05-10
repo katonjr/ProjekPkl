@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\FeaturedPlace;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class FeaturedPlaceController extends Controller
 {
@@ -30,6 +31,12 @@ class FeaturedPlaceController extends Controller
     //    $place= FeaturedPlace::create($request->all());
     //     return redirect()->back();
 
+    $request->validate([
+        'tempat' => 'required',
+        'deskripsi' => 'required',
+        'image' => 'image|mimes:jpeg,png,jpg,gif|max:500', // Validasi untuk tipe dan ukuran gambar
+    ]);
+
         $FeaturedPlace = new FeaturedPlace;
         $FeaturedPlace->tempat = $request->input('tempat');
         $FeaturedPlace->deskripsi = $request->input('deskripsi');
@@ -44,7 +51,7 @@ class FeaturedPlaceController extends Controller
         }
 
         $FeaturedPlace->save();
-        return redirect('/featuredplace')->with('success','Image Upload Successfully');
+        return redirect('featured/featuredplace')->with('success','Image Upload Successfully');
 
     }
 
@@ -55,6 +62,7 @@ class FeaturedPlaceController extends Controller
     // dd($data);
     return view('admin.viewfeaturedplace', compact('data'));
     }
+
 
     //Update Data Function
     public function updatedatafeatured(Request $request, $id){
@@ -73,72 +81,14 @@ class FeaturedPlaceController extends Controller
 
         $FeaturedPlace->save();
 
-        return redirect('/featuredplace')->with('success','Data Update Successfully');
+        return redirect('featured/featuredplace')->with('success','Data Update Successfully');
 
 
     }
 
 
 
-
-
-
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+    //Delete Data
 
     /**
      * Remove the specified resource from storage.
@@ -150,7 +100,7 @@ class FeaturedPlaceController extends Controller
     {
         $featuredPlace = FeaturedPlace::findOrFail($id);
         $featuredPlace->delete();
-        return redirect('/featuredplace')->with('success', 'Data Successfully Deleted');
+        return redirect('featured/featuredplace')->with('success', 'Data Successfully Deleted');
     }
 
 }

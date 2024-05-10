@@ -56,74 +56,78 @@
         </ul>
     </nav>
 
-    <main>
-        <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
-                            <div class="sb-sidenav-menu-heading">Content Maintenence</div>
-                            <a class="nav-link" href="/featuredplace">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Featured Place
-                            </a>
-                            <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                Blog
-                            </a>
-                            <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fa fa-tag"></i></div>
-                                Tags Blog
-                            </a>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <div class="sb-sidenav-menu-heading">Content Maintenence</div>
+                        <a class="nav-link" href="{{ url('featured/featuredplace') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            Featured Place
+                        </a>
+                        <a class="nav-link" href="/recentblog">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                            Blog
+                        </a>
+                        <a class="nav-link" href="tables.html">
+                            <div class="sb-nav-link-icon"><i class="fa fa-tag"></i></div>
+                            Tags Blog
+                        </a>
 
-                            <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-info-circle"></i></div>
-                                Category Blog
-                            </a>
+                        <a class="nav-link" href="/category">
+                            <div class="sb-nav-link-icon"><i class="fas fa-info-circle"></i></div>
+                            Category Blog
+                        </a>
 
-                            <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-image"></i></div>
-                                Galerry Destination
-                            </a>
+                        <a class="nav-link" href="tables.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-image"></i></div>
+                            Galerry Destination
+                        </a>
 
-                            <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-star"></i></div>
-                                Destiny Popular
-                            </a>
-                            <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-phone"></i></div>
-                                Contact
-                            </a>
-                            </a>
-                            <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fa fa-address-book"></i></div>
-                                Contact US
-                            </a>
-                            <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-user-circle"></i></div>
-                                About Me
-                            </a>
-
+                        <a class="nav-link" href="tables.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-star"></i></div>
+                            Destiny Popular
+                        </a>
+                        <a class="nav-link" href="tables.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-phone"></i></div>
+                            Contact
+                        </a>
+                        </a>
+                        <a class="nav-link" href="tables.html">
+                            <div class="sb-nav-link-icon"><i class="fa fa-address-book"></i></div>
+                            Contact US
+                        </a>
+                        <a class="nav-link" href="tables.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-user-circle"></i></div>
+                            About Me
+                        </a>
 
 
 
 
 
-                        </div>
+
                     </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        {{ auth()->user()->name }}
+                </div>
+                <div class="sb-sidenav-footer">
+                    <div class="small">Logged in as:</div>
+                    {{ auth()->user()->name }}
+                </div>
+            </nav>
+        </div>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container">
+                    <div class="mt-3">
+                        @yield('content')
                     </div>
-                </nav>
-            </div>
+                </div>
+            </main>
         </div>
-        <div class="mt-4">
-            @yield('content')
-        </div>
-    </main>
+    </div>
 
-    <!-- Scripts -->
+        <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
     <script src="{{ asset("admin/js/scripts.js") }}"></script>
@@ -133,6 +137,6 @@
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="js/datatables-simple-demo.js"></script>
-</body>
+    </body>
 
 </html>

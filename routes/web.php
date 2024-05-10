@@ -43,20 +43,35 @@ Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name(
 
 Route::resource('Contact', ContactController::class);
 
-// Featured Place Route
 
-Route::get('featuredplace', [App\Http\Controllers\FeaturedPlaceController::class, 'index']);
+// Featured Place Route manual satu satu ngambil fungsi di controler
 
-Route::get('addfeaturedplace', [App\Http\Controllers\FeaturedPlaceController::class, 'addfeaturedplace'])->name('addfeaturedplace');
+Route::get('featured/featuredplace', [App\Http\Controllers\FeaturedPlaceController::class, 'index']);
 
-Route::post('insertdatafeatured', [App\Http\Controllers\FeaturedPlaceController::class, 'insertdatafeatured'])->name('insertdatafeatured');
+Route::get('featured/addfeaturedplace', [App\Http\Controllers\FeaturedPlaceController::class, 'addfeaturedplace'])->name('addfeaturedplace');
 
-Route::get('/tampildatafeatured/{id}', [App\Http\Controllers\FeaturedPlaceController::class, 'tampildatafeatured'])->name('tampildatafeatured');
+Route::post('featured/insertdatafeatured', [App\Http\Controllers\FeaturedPlaceController::class, 'insertdatafeatured'])->name('insertdatafeatured');
 
-Route::post('/updatedatafeatured/{id}', [App\Http\Controllers\FeaturedPlaceController::class, 'updatedatafeatured'])->name('updatedatafeatured');
+Route::get('featured/tampildatafeatured/{id}', [App\Http\Controllers\FeaturedPlaceController::class, 'tampildatafeatured'])->name('tampildatafeatured');
 
-Route::delete('/featuredplace/{id}', [App\Http\Controllers\FeaturedPlaceController::class, 'destroy'])->name('admin.destroy');
+Route::post('featured/updatedatafeatured/{id}', [App\Http\Controllers\FeaturedPlaceController::class, 'updatedatafeatured'])->name('updatedatafeatured');
+
+Route::delete('featured/featuredplace/{id}', [App\Http\Controllers\FeaturedPlaceController::class, 'destroy'])->name('admin.destroy');
 
 
-//
+
+// Category Route otomatis ngambil semua fungsi di controler
+
+//cara routing pertama
+Route::resource('category',App\Http\Controllers\CategoryController::class);
+
+//cara routing kedua
+// Route::get('category/create',App\Http\Controllers\CategoryController::class, 'create')->name('category.create');
+
+
+
+//Recent Blog Route
+Route::resource('recentblog',App\Http\Controllers\RecentBlogController::class);
+
+
 

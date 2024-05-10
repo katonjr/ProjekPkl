@@ -14,7 +14,8 @@ class ContactController extends Controller
      */
     public function index()
     {
-        $datas = Contact::first();
+        $datas = Contact::firstOrFail();
+        // dd($datas);
         return view('contact', compact('datas'));
     }
 

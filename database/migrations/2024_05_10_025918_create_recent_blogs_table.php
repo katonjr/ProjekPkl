@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRecentBlogTable extends Migration
+class CreateRecentBlogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateRecentBlogTable extends Migration
      */
     public function up()
     {
-        Schema::create('recent_blog', function (Blueprint $table) {
+        Schema::create('recent_blogs', function (Blueprint $table) {
             $table->id();
             $table->string('image');
             $table->date('tanggal');
-            $table->integer('category_id');
+            $table->foreignId('category_id')->constrained('categories');
             $table->string('judul');
             $table->text('deskripsi');
+            $table->integer('user_id');
             $table->timestamps();
         });
     }
@@ -31,6 +32,6 @@ class CreateRecentBlogTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('recent_blog');
+        Schema::dropIfExists('recent_blogs');
     }
 }

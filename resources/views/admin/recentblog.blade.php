@@ -13,7 +13,7 @@
 
 <div class="judul flex">
     <div>
-        <h1>Featured Place Content</h1>
+        <h1>blog Content</h1>
     </div>
 </div>
 <div class="table-container">
@@ -25,14 +25,17 @@
             <tr>
                 <th scope="col">No.</th>
                 <th scope="col">Gambar</th>
-                <th scope="col">Tempat</th>
+                <th scope="col">Tanggal</th>
+                <th scope="col">Kategori</th>
+                <th scope="col">Judul</th>
                 <th scope="col">Deskripsi</th>
+                <th scope="col">Nama Pengupload</th>
                 <th scope="col">Aksi</th>
             </tr>
         </thead>
         <tbody>
 
-            @foreach ( $data as $key => $row)
+            {{-- @foreach ( $data as $key => $row)
             <tr>
                 <th scope="row">{{ $loop->iteration }}</th>
                 <td><img src="{{ asset('/uploads/'.$row->image) }}" alt=""></td>
@@ -47,7 +50,8 @@
                     </form>
                 </td>
             </tr>
-            @endforeach
+            @endforeach --}}
+
         </tbody>
     </table>
 </div>
