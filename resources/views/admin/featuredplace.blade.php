@@ -20,7 +20,7 @@
     <td colspan="5">
         <a href="{{url('featured/addfeaturedplace')}}" class="btn btn-primary mb-3"> Tambah + </a>
     </td>
-    <table class="table">
+    <table class="table table-bordered" border="1">
         <thead>
             <tr>
                 <th scope="col">No.</th>

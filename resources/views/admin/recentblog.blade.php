@@ -13,14 +13,14 @@
 
 <div class="judul flex">
     <div>
-        <h1>blog Content</h1>
+        <h1>Blog Content</h1>
     </div>
 </div>
 <div class="table-container">
     <td colspan="5">
-        <a href="{{url('featured/addfeaturedplace')}}" class="btn btn-primary mb-3"> Tambah + </a>
+        <a href="{{url('recentblog/create')}}" class="btn btn-primary mb-3"> Tambah + </a>
     </td>
-    <table class="table">
+    <table class="table table-bordered" border="1">
         <thead>
             <tr>
                 <th scope="col">No.</th>
@@ -28,8 +28,8 @@
                 <th scope="col">Tanggal</th>
                 <th scope="col">Kategori</th>
                 <th scope="col">Judul</th>
-                <th scope="col">Deskripsi</th>
-                <th scope="col">Nama Pengupload</th>
+                <th scope="col">Deskripsi Tempat</th>
+                <th scope="col">Nama</th>
                 <th scope="col">Aksi</th>
             </tr>
         </thead>

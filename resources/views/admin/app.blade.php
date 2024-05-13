@@ -36,11 +36,6 @@
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#!">Settings</a></li>
-                    <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                    <li>
-                        <hr class="dropdown-divider" />
-                    </li>
                     <li>
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                           document.getElementById('logout-form').submit();">
@@ -66,7 +61,7 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Featured Place
                         </a>
-                        <a class="nav-link" href="/recentblog">
+                        <a class="nav-link" href="{{ url('/recentblog')}}">
                             <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                             Blog
                         </a>
@@ -75,7 +70,7 @@
                             Tags Blog
                         </a>
 
-                        <a class="nav-link" href="/category">
+                        <a class="nav-link" href="{{ url('/category')}}">
                             <div class="sb-nav-link-icon"><i class="fas fa-info-circle"></i></div>
                             Category Blog
                         </a>
