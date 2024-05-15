@@ -16,11 +16,11 @@ class FeaturedPlaceController extends Controller
     public function index()
     {
         $data = FeaturedPlace::all();
-        return view('admin.featuredplace',compact('data'));
+        return view('admin.featuredplace.list',compact('data'));
     }
 
     public function addfeaturedplace(){
-        return view('admin.addfeaturedplace');
+        return view('admin.featuredplace.add');
     }
 
 
@@ -31,10 +31,13 @@ class FeaturedPlaceController extends Controller
     //    $place= FeaturedPlace::create($request->all());
     //     return redirect()->back();
 
+
+    // sistem cek satu persatu
+
     $request->validate([
         'tempat' => 'required',
         'deskripsi' => 'required',
-        'image' => 'image|mimes:jpeg,png,jpg,gif|max:500', // Validasi untuk tipe dan ukuran gambar
+        'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi untuk tipe dan ukuran gambar
     ]);
 
         $FeaturedPlace = new FeaturedPlace;
@@ -60,7 +63,7 @@ class FeaturedPlaceController extends Controller
     public function tampildatafeatured($id){
     $data = FeaturedPlace::find($id);
     // dd($data);
-    return view('admin.viewfeaturedplace', compact('data'));
+    return view('admin.featuredplace.edit', compact('data'));
     }
 
 

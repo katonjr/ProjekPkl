@@ -13,34 +13,41 @@
 
 <div class="judul flex">
     <div>
-        <h1>Featured Place Content</h1>
+        <h1>Blog Content</h1>
     </div>
 </div>
 <div class="table-container">
     <td colspan="5">
-        <a href="{{url('featured/addfeaturedplace')}}" class="btn btn-primary mb-3"> Tambah + </a>
+        <a href="{{url('recentblog/create')}}" class="btn btn-primary mb-3"> Tambah + </a>
     </td>
     <table class="table table-bordered" border="1">
         <thead>
             <tr>
                 <th scope="col">No.</th>
                 <th scope="col">Gambar</th>
-                <th scope="col">Tempat</th>
-                <th scope="col">Deskripsi</th>
+                <th scope="col">Tanggal</th>
+                <th scope="col">Kategori</th>
+                <th scope="col">Judul</th>
+                <th scope="col">Deskripsi Tempat</th>
+                <th scope="col">Nama</th>
                 <th scope="col">Aksi</th>
             </tr>
         </thead>
         <tbody>
 
-            @foreach ( $data as $key => $row)
+            @foreach ( $data as $row)
             <tr>
                 <th scope="row">{{ $loop->iteration }}</th>
-                <td><img src="{{ asset('/uploads/'.$row->image) }}" alt=""></td>
-                <td>{{ $row->tempat }}</td>
+                <td><img src="{{ asset('/uploads/'.$row->image) }}" width="100px" height="100px"></td>
+                <td>{{ $row->tanggal }}</td>
+                <td>{{ $row->namacategory->nama_category ?? "" }}</td>
+                <td>{{ $row->judul }}</td>
                 <td>{{ $row->deskripsi }}</td>
+                <td>{{ $row->nama->name }}</td>
                 <td>
-                    <a href="{{ route('tampildatafeatured', $row->id) }}" class="btn btn-warning">Edit</a>
-                    <form action="{{ route('admin.destroy', $row->id) }}" method="POST" class="d-inline">
+                    <a href="{{ route('recentblog.edit', $row->id) }}" class="btn btn-warning">Edit</a>
+
+                    <form action="{{ route('recentblog.destroy', $row->id) }}" method="POST" class="d-inline">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
@@ -48,6 +55,7 @@
                 </td>
             </tr>
             @endforeach
+
         </tbody>
     </table>
 </div>

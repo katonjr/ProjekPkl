@@ -10,13 +10,13 @@ class CategoryController extends Controller
     public function index()
     {
         $data = Category::all();
-        return view('admin.category',compact('data'));
+        return view('admin.category.list',compact('data'));
     }
 
 
     public function create()
     {
-        return view('admin.addcategory');
+        return view('admin.category.add');
     }
 
 
@@ -46,7 +46,7 @@ class CategoryController extends Controller
         // $datas = Category::where('id',$id)->get();
         // dd($data,$datas);
 
-        return view('admin.editcategory',compact('data'));
+        return view('admin.category.edit',compact('data'));
     }
 
 

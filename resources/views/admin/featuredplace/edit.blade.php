@@ -11,12 +11,14 @@
             <div class="col-8">
                 <div class="card">
                     <div class="card-body">
-                        <form action= {{  url('featured/updatedatafeatured/'.$data->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action= "{{  url('featured/updatedatafeatured/'.$data->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Image Upload</label>
                                 <input type="file" name="image" class="form-control" id="image" aria-describedby="Isi Image">
-                                <label class="form-control">{{$data->image}}</label>
+                                <br>
+                                <img src="{{ asset('uploads/'.$data->image) }}" width="100px" width="100px">
+                                {{-- <label class="form-control">{{$data->image}}</label> --}}
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Nama Tempat</label>

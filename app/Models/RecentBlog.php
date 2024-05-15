@@ -11,4 +11,12 @@ class RecentBlog extends Model
 
     protected $guarded = [];
 
+    public function namacategory(){
+        return $this->hasOne(Category::class,'id','category_id');
+    }
+
+    public function nama(){
+        return $this->hasOne(User::class,'id','user_id');
+    }
+
 }

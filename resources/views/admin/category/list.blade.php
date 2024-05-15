@@ -39,6 +39,7 @@
                     <td>{{ $row->nama_category }}</td>
                     <td>
                         <a href="{{ route('category.edit', $row->id) }}" class="btn btn-warning">Edit</a>
+
                         <form action="{{ route('category.destroy', $row->id) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
