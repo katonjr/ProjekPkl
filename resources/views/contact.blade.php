@@ -60,7 +60,7 @@
                     </span>
                     <div>
                         <span>Phone</span>
-                        <p class="text">{{ $datas->phone }}</p>
+                        <p class="text">{{ $datacontact->phone }}</p>
                     </div>
                 </div>
                 <div class="contact-item">
@@ -69,7 +69,7 @@
                     </span>
                     <div>
                         <span>Address</span>
-                        <p class="text">{{ $datas->address }}</p>
+                        <p class="text">{{ $datacontact->address }}</p>
                     </div>
                 </div>
                 <div class="contact-item">
@@ -78,7 +78,7 @@
                     </span>
                     <div>
                         <span>Email</span>
-                        <p class="text">{{ $datas->email }}</p>
+                        <p class="text">{{ $datacontact->email }}</p>
                     </div>
                 </div>
             </div>

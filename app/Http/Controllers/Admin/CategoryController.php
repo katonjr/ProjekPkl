@@ -1,12 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     public function index()
     {
         $data = Category::all();
@@ -30,7 +34,7 @@ class CategoryController extends Controller
         $newdata = new Category;
         $newdata->nama_category=$request->nama_category;
         $newdata->save();
-        return redirect('category')->with('success','Data Upload Successfully');
+        return redirect('admin/category')->with('success','Data Upload Successfully');
 
 
 
@@ -67,7 +71,7 @@ class CategoryController extends Controller
         //contoh deklarasi data sendiri dengan banyak
         // Category::where('id',$id)->update(['nama_category'=>$request->nama_category]);
 
-        return redirect('category')->with('success','Data Update Successfully');
+        return redirect('admin/category')->with('success','Data Update Successfully');
 
 
     }
@@ -76,7 +80,7 @@ class CategoryController extends Controller
     {
         $data = Category::findOrFail($id);
         $data->delete();
-        return redirect('category')->with('success', 'Data Deleted Successfully ');
+        return redirect('admin/category')->with('success', 'Data Deleted Successfully ');
 
     }
 

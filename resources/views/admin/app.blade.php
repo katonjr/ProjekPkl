@@ -22,7 +22,7 @@
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="/home">TonBlog Admin</a>
+        <a class="navbar-brand ps-3" href="/admin/home">TonBlog Admin</a>
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
                 class="fas fa-bars"></i></button>
@@ -57,11 +57,11 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Content Maintenence</div>
-                        <a class="nav-link" href="{{ url('featured/featuredplace') }}">
+                        <a class="nav-link" href="{{ url('admin/featured/featuredplace') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Featured Place
                         </a>
-                        <a class="nav-link" href="{{ url('/recentblog')}}">
+                        <a class="nav-link" href="{{ url('admin/recentblog')}}">
                             <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                             Blog
                         </a>
@@ -70,7 +70,7 @@
                             Tags Blog
                         </a>
 
-                        <a class="nav-link" href="{{ url('/category')}}">
+                        <a class="nav-link" href="{{ url('admin/category')}}">
                             <div class="sb-nav-link-icon"><i class="fas fa-info-circle"></i></div>
                             Category Blog
                         </a>
@@ -84,7 +84,7 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-star"></i></div>
                             Destiny Popular
                         </a>
-                        <a class="nav-link" href="tables.html">
+                        <a class="nav-link" href="{{ url('admin/contact') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-phone"></i></div>
                             Contact
                         </a>
@@ -97,11 +97,6 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-user-circle"></i></div>
                             About Me
                         </a>
-
-
-
-
-
 
                     </div>
                 </div>

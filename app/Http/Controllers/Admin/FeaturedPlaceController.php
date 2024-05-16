@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
 
 use App\Models\FeaturedPlace;
 use Illuminate\Http\Request;
@@ -8,6 +9,9 @@ use Intervention\Image\Facades\Image;
 
 class FeaturedPlaceController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -54,7 +58,7 @@ class FeaturedPlaceController extends Controller
         }
 
         $FeaturedPlace->save();
-        return redirect('featured/featuredplace')->with('success','Image Upload Successfully');
+        return redirect('admin/featured/featuredplace')->with('success','Image Upload Successfully');
 
     }
 
@@ -84,7 +88,7 @@ class FeaturedPlaceController extends Controller
 
         $FeaturedPlace->save();
 
-        return redirect('featured/featuredplace')->with('success','Data Update Successfully');
+        return redirect('admin/featured/featuredplace')->with('success','Data Update Successfully');
 
 
     }
@@ -103,7 +107,7 @@ class FeaturedPlaceController extends Controller
     {
         $featuredPlace = FeaturedPlace::findOrFail($id);
         $featuredPlace->delete();
-        return redirect('featured/featuredplace')->with('success', 'Data Successfully Deleted');
+        return redirect('admin/featured/featuredplace')->with('success', 'Data Successfully Deleted');
     }
 
 }

@@ -1,77 +1,47 @@
 <?php
-use App\Http\Controllers\FeaturedPlaceController;
-use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', function () {
-    return view('index');
-});
-
-Route::get('/gallery', function () {
-    return view('gallery');
-});
-
-Route::get('/blog', function () {
-    return view('blog');
-});
-
-Route::get('/about', function () {
-    return view('about');
-});
-
-
-// Route::get('/contact', function () {
-//     return view('contact');
-// });
-
-Route::get('/contact', [ContactController::class,'index']);
-
-
-
-
-Route::get('/detail', function () {
-    return view('detail');
-});
-
-
-
 Auth::routes();
 
-Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\WebController::class, 'index']);
+Route::get('/about' ,[App\Http\Controllers\WebController::class, 'page']);
+Route::get('/contact' ,[App\Http\Controllers\WebController::class, 'page']);
+Route::get('/gallery' , [App\Http\Controllers\WebController::class, 'page']);
+Route::get('/blog' ,[App\Http\Controllers\WebController::class, 'page']);
+Route::get('/blog/{slug}' ,[App\Http\Controllers\WebController::class, 'page']);
+Route::get('/{any}' ,[App\Http\Controllers\WebController::class, 'page']);
 
-Route::resource('Contact', ContactController::class);
+// Route::resource('admin/contact', ContactController::class);
 
+Route::prefix('admin')->group(function(){
 
-// Featured Place Route manual satu satu ngambil fungsi di controler
+    Route::get('/home', [App\Http\Controllers\Admin\HomeController::class,'index']);
+    //cara routing pertama
+    Route::resource('category', App\Http\Controllers\Admin\CategoryController::class);
 
-Route::get('featured/featuredplace', [App\Http\Controllers\FeaturedPlaceController::class, 'index']);
-
-Route::get('featured/addfeaturedplace', [App\Http\Controllers\FeaturedPlaceController::class, 'addfeaturedplace'])->name('addfeaturedplace');
-
-Route::post('featured/insertdatafeatured', [App\Http\Controllers\FeaturedPlaceController::class, 'insertdatafeatured'])->name('insertdatafeatured');
-
-Route::get('featured/tampildatafeatured/{id}', [App\Http\Controllers\FeaturedPlaceController::class, 'tampildatafeatured'])->name('tampildatafeatured');
-
-Route::post('featured/updatedatafeatured/{id}', [App\Http\Controllers\FeaturedPlaceController::class, 'updatedatafeatured'])->name('updatedatafeatured');
-
-Route::delete('featured/featuredplace/{id}', [App\Http\Controllers\FeaturedPlaceController::class, 'destroy'])->name('admin.destroy');
-
-
-
-// Category Route otomatis ngambil semua fungsi di controler
-
-//cara routing pertama
-Route::resource('category',App\Http\Controllers\CategoryController::class);
-
-//cara routing kedua
-// Route::get('category/create',App\Http\Controllers\CategoryController::class, 'create')->name('category.create');
+    //cara routing kedua
+    // Route::get('category/create',App\Http\Controllers\CategoryController::class, 'create')->name('category.create');
 
 
+    Route::resource('contact', App\Http\Controllers\Admin\ContactController::class);
+    // Route::resource('contact', [HomeController::class, 'contact']);
 
-//Recent Blog Route
-Route::resource('recentblog',App\Http\Controllers\RecentBlogController::class);
+    // Featured Place Route manual satu satu ngambil fungsi di controler
+    Route::get('featured/featuredplace', [App\Http\Controllers\Admin\FeaturedPlaceController::class, 'index']);
+    Route::get('featured/addfeaturedplace', [App\Http\Controllers\Admin\FeaturedPlaceController::class, 'addfeaturedplace'])->name('addfeaturedplace');
+    Route::post('featured/insertdatafeatured', [App\Http\Controllers\Admin\FeaturedPlaceController::class, 'insertdatafeatured'])->name('featured.store');
+    Route::get('featured/tampildatafeatured/{id}', [App\Http\Controllers\Admin\FeaturedPlaceController::class, 'tampildatafeatured'])->name('tampildatafeatured');
+    Route::post('featured/updatedatafeatured/{id}', [App\Http\Controllers\Admin\FeaturedPlaceController::class, 'updatedatafeatured'])->name('updatedatafeatured');
+    Route::delete('featured/featuredplace/{id}', [App\Http\Controllers\Admin\FeaturedPlaceController::class, 'destroy'])->name('admin.destroy');
+
+    // Category Route otomatis ngambil semua fungsi di controler
 
 
+    //Recent Blog Route
+    Route::resource('recentblog', App\Http\Controllers\Admin\RecentBlogController::class);
 
+    // Route::resource('contact', ContactController::class);
+
+});

@@ -18,7 +18,7 @@
 </div>
 <div class="table-container">
     <td colspan="5">
-        <a href="{{url('featured/addfeaturedplace')}}" class="btn btn-primary mb-3"> Tambah + </a>
+        <a href="{{url('admin/featured/addfeaturedplace')}}" class="btn btn-primary mb-3"> Tambah + </a>
     </td>
     <table class="table table-bordered" border="1">
         <thead>

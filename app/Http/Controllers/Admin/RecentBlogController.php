@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
 
 use App\Models\Category;
 use App\Models\RecentBlog;
@@ -9,6 +10,10 @@ use Illuminate\Support\Facades\Auth;
 
 class RecentBlogController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $data = RecentBlog::get();
@@ -56,7 +61,7 @@ class RecentBlogController extends Controller
             'user_id' => Auth::id(),
         ]);
 
-        return redirect('recentblog')->with('success','Data Upload Successfully');
+        return redirect()->route('recentblog.index')->with('success','Data Upload Successfully');
     }
 
 
@@ -104,7 +109,7 @@ class RecentBlogController extends Controller
         $data->deskripsi = $request->deskripsi;
         $data->save();
 
-        return redirect('recentblog')->with('success','Data Updated Successfully');
+        return redirect()->route('recentblog.index')->with('success','Data Updated Successfully');
     }
 
 
@@ -112,7 +117,7 @@ class RecentBlogController extends Controller
     {
         $data = RecentBlog::findOrFail($id);
         $data->delete();
-        return redirect('recentblog')->with('success', 'Data Deleted Successfully ');
+        return redirect()->route('recentblog.index')->with('success', 'Data Deleted Successfully ');
 
     }
 
