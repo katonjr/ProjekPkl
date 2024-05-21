@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
     <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
+
 </head>
 
 <body>
@@ -63,6 +64,7 @@
 
     {{-- isi konten --}}
     @yield('content')
+    @include('sweetalert::alert')
     {{-- akhir konten --}}
 
     <!-- footer -->

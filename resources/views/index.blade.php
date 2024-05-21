@@ -131,7 +131,7 @@
                             </div>
                             <div class="blog-item-bottom">
                                 <span>Pacitan | Katon</span>
-                                <a href="/detail">6 Recommendations for the Most Beautiful Beaches in Pacitan City, East
+                                <a href="{{ url('detail') }}">6 Recommendations for the Most Beautiful Beaches in Pacitan City, East
                                     Java</a>
                                 <p class="text">Pacitan, a city on the southern coast of East Java, Indonesia, is famous for
                                     the

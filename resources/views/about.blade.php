@@ -22,25 +22,21 @@
 
         <div class="about-row">
             <div class="about-left my-2">
-                <img src="images/about-img.jpg" alt="about img">
+                <img src="{{ asset('/uploads/'.$dataabout->image) }}" alt="about img">
             </div>
             <div class="about-right">
-                <h2>Hi, I'm Katon </h2>
-                <p class="text">The first adventure was when I was 6 years old,
-                    my mother took me to Kenjeran Beach Surabaya,
-                    by boarding an public transportation.
-                    My hometown is in Surabaya, East Java.
-                    That's where the excitement of my adventure
-                    probably started to emerge.
+                <h2>{{ $dataabout->nama }}</h2>
+
+                <p class="text">{{ $dataabout->deskripsi }}
                 </p>
-                <p class="text"> always like new things.
+                {{-- <p class="text"> always like new things.
 
                     I like getting lost. By getting lost I often see new worlds
                     that I have never seen before.
                     In the past, the tastiest and most beautiful areas were forests.
                     However, once I get to know the sea, my thinking will change.
 
-                    I like the sea and quiet beaches. I like silence.</p>
+                    I like the sea and quiet beaches. I like silence.</p> --}}
             </div>
         </div>
     </div>

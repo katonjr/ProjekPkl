@@ -10,10 +10,16 @@ Route::get('/about' ,[App\Http\Controllers\WebController::class, 'page']);
 Route::get('/contact' ,[App\Http\Controllers\WebController::class, 'page']);
 Route::get('/gallery' , [App\Http\Controllers\WebController::class, 'page']);
 Route::get('/blog' ,[App\Http\Controllers\WebController::class, 'page']);
+Route::get('/detail' ,[App\Http\Controllers\WebController::class, 'page']);
 Route::get('/blog/{slug}' ,[App\Http\Controllers\WebController::class, 'page']);
+Route::get('/sendmessage' ,[App\Http\Controllers\WebController::class, 'contactUs'])->name('sendmessage');
 Route::get('/{any}' ,[App\Http\Controllers\WebController::class, 'page']);
 
 // Route::resource('admin/contact', ContactController::class);
+
+
+
+
 
 Route::prefix('admin')->group(function(){
 
@@ -43,5 +49,18 @@ Route::prefix('admin')->group(function(){
     Route::resource('recentblog', App\Http\Controllers\Admin\RecentBlogController::class);
 
     // Route::resource('contact', ContactController::class);
+
+    //Galerry Route
+    Route::resource('galerry', App\Http\Controllers\Admin\GalerryController::class);
+
+    //Destiny Route
+    Route::resource('destiny', App\Http\Controllers\Admin\DestinyController::class);
+
+    //Aboutme Route
+    Route::resource('aboutme', App\Http\Controllers\Admin\AboutMeController::class);
+
+    //Contact Us Route
+    Route::resource('contactus', App\Http\Controllers\Admin\ContactUsController::class);
+
 
 });

@@ -12,11 +12,7 @@ class FeaturedPlaceController extends Controller
     public function __construct(){
         $this->middleware('auth');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $data = FeaturedPlace::all();
@@ -36,7 +32,7 @@ class FeaturedPlaceController extends Controller
     //     return redirect()->back();
 
 
-    // sistem cek satu persatu
+    // sistem cek data satu persatu
 
     $request->validate([
         'tempat' => 'required',

@@ -12,27 +12,26 @@
 </header>
 <style>
     .contact-row {
-    display: flex;
-    flex-direction: row;
-    padding: 0 20%;
-}
-
-.contact-left,
-.contact-right {
-    flex: 1;
-}
-
-@media (max-width: 768px) {
-    .contact-row {
-        flex-direction: column;
+        display: flex;
+        flex-direction: row;
+        padding: 0 20%;
     }
 
     .contact-left,
     .contact-right {
-        flex: none;
+        flex: 1;
     }
-}
 
+    @media (max-width: 768px) {
+        .contact-row {
+            flex-direction: column;
+        }
+
+        .contact-left,
+        .contact-right {
+            flex: none;
+        }
+    }
 </style>
 <!-- header -->
 
@@ -46,12 +45,39 @@
 
         <div class="contact-row">
             <div class="contact-left">
-                <form class="contact-form">
-                    <input type="text" class="form-control" placeholder="Your name">
-                    <input type="email" class="form-control" placeholder="Your email">
-                    <textarea rows="4" class="form-control" placeholder="Your message" style="resize: none;"></textarea>
+                <form class="contact-form" action="{{ route('sendmessage') }}">
+                    <input type="text" name="nama" class="form-control  @error('nama')
+                    is-invalid @enderror" placeholder="Your name">
+                    @error('nama')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+
+                    <input type="email" name="email" class="form-control @error('email')
+                    is-invalid @enderror" placeholder="Your email">
+                    @error('email')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+
+                    <textarea rows="4" name="pesan" class="form-control @error('pesan')
+                    is-invalid @enderror" placeholder="Your message"
+                        style="resize: none;"></textarea>
+                    @error('pesan')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+
+                    <br/>
                     <input type="submit" class="btn" value="Send message">
+
                 </form>
+
+                <br />
+                @if ($message = Session::get('sukses'))
+                <div class="alert alert-success alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>{{ $message }}</strong>
+                </div>
+                @endif
+
             </div>
             <div class="contact-right my-2">
                 <div class="contact-item">

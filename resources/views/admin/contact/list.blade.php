@@ -29,7 +29,7 @@
                     <th scope="col">No.</th>
                     <th scope="col">Nomer Telpon</th>
                     <th scope="col">Alamat Penulis</th>
-                    <th scope="col">Email Penuli</th>
+                    <th scope="col">Email Penulis</th>
                     <th scope="col">Aksi</th>
                 </tr>
             </thead>
