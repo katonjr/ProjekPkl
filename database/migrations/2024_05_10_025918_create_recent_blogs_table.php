@@ -18,8 +18,9 @@ class CreateRecentBlogsTable extends Migration
             $table->string('image');
             $table->date('tanggal');
             $table->foreignId('category_id')->constrained('categories');
-            $table->string('judul');
-            $table->text('deskripsi');
+            $table->string('judul',200);
+            $table->string('slug',255);
+            $table->longText('deskripsi');
             $table->integer('user_id');
             $table->timestamps();
         });

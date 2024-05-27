@@ -11,7 +11,7 @@
             <div class="col-8">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{route('recentblog.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('recentblog.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
 
@@ -27,8 +27,7 @@
                                 <div class="mb-3">
                                     <label for="Tanggal" class="form-label">Tanggal</label>
                                     <input type="date" name="tanggal" class="form-control @error('tanggal')
-                                    is-invalid @enderror"
-                                    id="tanggal" aria-describedby="Isi Tanggal">
+                                    is-invalid @enderror" id="tanggal" aria-describedby="Isi Tanggal">
                                 </div>
                                 @error('tanggal')
                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -36,13 +35,12 @@
 
                                 <div class="mb-3">
                                     <label for="Kategori" class="form-label">Kategori</label>
-                                    <select  name="category_id" class="form-control @error('category_id')
+                                    <select name="category_id" class="form-control @error('category_id')
                                     is-invalid @enderror" id="kategori" aria-describedby="Pilih Kategori">
                                         <option value="">Pilih Kategori</option>
 
-                                        @foreach ( $datakategori as $kategori )
-                                        <option value="{{ $kategori->id }}">{{ $kategori->nama_category}} </option>
-
+                                        @foreach ($data['datakategori'] as $kategori)
+                                        <option value="{{ $kategori->id }}">{{ $kategori->nama_category }} </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -61,42 +59,89 @@
 
                                 <div class="mb-3">
                                     <label for="Deskripsi" class="form-label">Deskripsi Tempat</label>
-                                    <textarea name="deskripsi" class="form-control  @error('deskripsi')
-                                    is-invalid @enderror" id="deskripsi" aria-describedby="Tulis Deskripsi Isi Konten Blog Anda"></textarea>
+                                    <textarea name="deskripsi" class="form-control textEditor  @error('deskripsi')
+                                    is-invalid @enderror" id="deskripsi"
+                                        aria-describedby="Tulis Deskripsi Isi Konten Blog Anda"></textarea>
                                 </div>
                                 @error('deskripsi')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
 
-
                                 <div class="mb-3">
-                                    <label for="Deskripsi" class="form-label">Nama Penulis</label>
-                                    <input type="text" class="form-control @error('user_id') is-invalid @enderror"  value="{{ Auth::user()->name }}" readonly>
-
-                                    <input type="hidden" name="user_id" class="form-control" id="user_id"
-                                        aria-describedby="Tulis Nama Anda" value="{{ Auth::user()->id }}" readonly>
+                                    <label for="Judul Blog">Tags Blog</label>
+                                    <br>
+                                    <select class="form-select" id="tags_id" data-placeholder="pilih tags" multiple
+                                        name="tags_id[]">
+                                        <option value="">Pilih Tags</option>
+                                        @foreach ($data['datatags'] as $tags)
+                                        <option value="{{ $tags->tags }}">{{ $tags->tags }} </option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
-                                @error('user_id')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-
-
-
-                                {{-- <label for="Nama Category" class="form-label">Nama Blog</label>
-                                <input type="text" name="" class="form-control @error('nama_category')
-                                is-invalid @enderror" id="Nama Kategori" aria-describedby="Tulis Nama Kategori Blog">
-                                <br>
-
-                                @error('nama_category')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror --}}
-
+                                {{-- <div class="mb-3">
+                                    <label for="Tags" class="form-label">Tambah Tags</label>
+                                    <input type="text" class="form-control @error('tags_id') is-invalid @enderror" name="tags_id">
+                                </div>
+                                @error('tags_id')
+                                <div class="alert alert-danger">{{ $message }}
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
+                            @enderror --}}
+
+
+
+                            <div class="mb-3">
+                                <label for="Deskripsi" class="form-label">Nama Penulis</label>
+                                <input type="text" class="form-control @error('user_id') is-invalid @enderror"
+                                    value="{{ Auth::user()->name }}" readonly>
+
+                                <input type="hidden" name="user_id" class="form-control" id="user_id"
+                                    aria-describedby="Tulis Nama Anda" value="{{ Auth::user()->id }}" readonly>
+                            </div>
+
+                            @error('user_id')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+
+
                     </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
                 </div>
             </div>
         </div>
-        @endsection
+    </div>
+
+
+    <script>
+        $('#tags_id').select2({
+            theme: "bootstrap-5",
+            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
+            closeOnSelect: false,
+            tags: true
+        });
+    </script>
+
+
+    <script>
+            tinymce.init({
+                selector: 'textarea#deskripsi',
+                plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+                toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+                tinycomments_mode: 'embedded',
+                tinycomments_author: 'Author name',
+                mergetags_list: [{
+                        value: 'First.Name',
+                        title: 'First Name'
+                    },
+                    {
+                        value: 'Email',
+                        title: 'Email'
+                    },
+                ],
+                ai_request: (request, respondWith) => respondWith.string(() => Promise.reject(
+                    "See docs to implement AI Assistant")),
+            });
+    </script>
+    @endsection

@@ -4635,6 +4635,15 @@ textarea.form-control-lg {
   top: -1px;
 }
 
+.badge-danger{
+    color: #ffff;
+    background-color: red;
+}
+.badge-primary{
+    color: #ffff;
+    background-color: blue;
+}
+
 .alert {
   --bs-alert-bg: transparent;
   --bs-alert-padding-x: 1rem;

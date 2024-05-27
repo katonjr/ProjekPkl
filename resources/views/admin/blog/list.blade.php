@@ -30,6 +30,7 @@
                 <th scope="col">Judul</th>
                 <th scope="col">Deskripsi Tempat</th>
                 <th scope="col">Nama</th>
+                <th scope="col">Tags BLog</th>
                 <th scope="col">Aksi</th>
             </tr>
         </thead>
@@ -42,8 +43,27 @@
                 <td>{{ $row->tanggal }}</td>
                 <td>{{ $row->namacategory->nama_category ?? "" }}</td>
                 <td>{{ $row->judul }}</td>
-                <td>{!! Str::limit ($row->deskripsi,40 )!!}</td>
+                <td>{!! Str::limit ($row->deskripsi,20 )!!}</td>
                 <td>{{ $row->nama->name }}</td>
+                <td>
+                    {{-- memecah data --}}
+                    @php
+                        $namatags     = explode(',',$row->tags_id);
+                        $tag          = array();
+                        for($x=0;$x < count($namatags);$x++){
+                            $tag[]    = "<span class='badge badge-danger'>".\App\Models\RecentBlog::ambilnamatags($namatags[$x])."</span>";
+                        }
+                        $namatags     = $tag;
+                    @endphp
+                    {{-- @foreach ($namatags as $key => $tg)
+                        {!! $tg !!}
+                    @endforeach --}}
+
+                    @foreach ($row->tags as $tag)
+                        <p>{{ $tag->tags }}</p>
+                    @endforeach
+                </td>
+
                 <td>
                     <a href="{{ route('recentblog.edit', $row->id) }}" class="btn btn-warning">Edit</a>
 

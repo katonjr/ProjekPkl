@@ -45,8 +45,8 @@
                         <button type="button" class="btn btn-warning klikpesan" data-bs-toggle="modal"
                             data-bs-target="#viewmessage" data-id="{{ $row->id }}">View</button>
 
-                        <button type="button" class="btn btn-info balaspesan" data-bs-toggle="modal"
-                            data-bs-target="#replymessage" data-id="{{ $row->id }}">Reply</button>
+                        {{-- <button type="button" class="btn btn-info balaspesan" data-bs-toggle="modal"
+                            data-bs-target="#replymessage" data-id="{{ $row->id }}">Reply</button> --}}
 
                         <form action="{{ route('contactus.destroy', $row->id) }}" method="POST" class="d-inline">
                             @csrf
@@ -78,7 +78,9 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="replymessage"  role="dialog" aria-labelledby="replymessageLabel"
+
+    {{-- balas pesan masuk --}}
+    {{-- <div class="modal fade" id="replymessage"  role="dialog" aria-labelledby="replymessageLabel"
         aria-hidden="false">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -95,7 +97,8 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
+
     <script>
         $(".klikpesan").click(function () {
             let idpesan = $(this).data('id');

@@ -9,5 +9,6 @@
 <body>
     <p> {{ $details['balasan'] }} </p>
     <p> Terima Kasih</p>
+
 </body>
 </html>

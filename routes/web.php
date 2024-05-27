@@ -27,6 +27,9 @@ Route::prefix('admin')->group(function(){
     //cara routing pertama
     Route::resource('category', App\Http\Controllers\Admin\CategoryController::class);
 
+    //cara routing
+
+
     //cara routing kedua
     // Route::get('category/create',App\Http\Controllers\CategoryController::class, 'create')->name('category.create');
 
@@ -61,6 +64,9 @@ Route::prefix('admin')->group(function(){
 
     //Contact Us Route
     Route::resource('contactus', App\Http\Controllers\Admin\ContactUsController::class);
+
+    //Tags Blog Route
+    Route::resource('tagsblog', App\Http\Controllers\Admin\TagsBlogController::class);
 
 
 });

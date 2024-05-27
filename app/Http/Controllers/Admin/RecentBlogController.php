@@ -5,8 +5,10 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Category;
 use App\Models\RecentBlog;
+use App\Models\TagsBlog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class RecentBlogController extends Controller
 {
@@ -24,14 +26,18 @@ class RecentBlogController extends Controller
         public function create()
     {
 
-        $datakategori = Category::all();
+        $data = [
+            "datakategori"  => Category::all(),
+            "datatags"      => TagsBlog::get()
+        ];
         // dd(Auth::user());
-        return view('admin.blog.add',compact('datakategori'));
+        return view('admin.blog.add',compact('data'));
 
     }
 
     public function store(Request $request)
     {
+        // dd ($request->all());
 
         // sistem bulk data (dikumpulkan dan dieksekusi bersama)
 
@@ -39,10 +45,12 @@ class RecentBlogController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'tanggal' => 'required|date',
             'category_id' => 'required|exists:categories,id',
+            // 'tags_id' => 'required|exists:tags_blog,id',
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
         ]);
 
+        $tags       = implode(",",$request->tags_id);
         if($request->hasfile('image'))
         {
             $file = $request->file('image');
@@ -52,14 +60,36 @@ class RecentBlogController extends Controller
             $image = $filename;
         }
 
-        RecentBlog::create([
+       $blog = RecentBlog::create([
             'image' => $image,
             'tanggal' => $request->tanggal,
             'category_id' => $request->category_id,
+            // 'tags_id' => $tags,
             'judul' => $request->judul,
+            'slug' => Str::slug($request->judul,"-"),
             'deskripsi' => $request->deskripsi,
             'user_id' => Auth::id(),
         ]);
+
+        $tags = [];
+
+        foreach ($request->tags_id as $tagName) {
+            $tag = TagsBlog::where('tags', $tagName)->first();
+
+            if ($tag) {
+                $tags[] = $tag->id;
+            }
+
+            if (!$tag) {
+                $tag = new TagsBlog();
+                $tag->tags = $tagName;
+                $tag->save();
+
+                $tags[] = $tag->id;
+            }
+        }
+
+        $blog->tags()->sync($tags);
 
         return redirect()->route('recentblog.index')->with('success','Data Upload Successfully');
     }
@@ -70,12 +100,15 @@ class RecentBlogController extends Controller
         //untuk mengedit satu data berbentuk objek
         $data           = RecentBlog::findOrFail($id);
         $datakategori   = Category::get();
+        $datatag        = TagsBlog::get();
 
+        $valtags        = explode(",", $data->tags_id);
         //untuk melooping banyak data
         // $datas = Category::where('id',$id)->get();
         // dd($data,$datas);
 
-        return view('admin.blog.edit',compact('data','datakategori'));
+        // $labeltag = explode();
+        return view('admin.blog.edit',compact('data','datakategori','datatag','valtags'));
     }
 
 
@@ -86,6 +119,7 @@ class RecentBlogController extends Controller
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'tanggal' => 'required|date',
             'category_id' => 'required|exists:categories,id',
+            // 'tags_id' => 'required|exists:tags_blog,id',
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
         ]);
@@ -105,9 +139,30 @@ class RecentBlogController extends Controller
 
         $data->tanggal = $request->tanggal;
         $data->category_id = $request->category_id;
+        // $data->tags_id = $request->tags_id;
         $data->judul = $request->judul;
         $data->deskripsi = $request->deskripsi;
         $data->save();
+
+        $tags = [];
+
+        foreach ($request->tags_id as $tagName) {
+            $tag = TagsBlog::where('tags', $tagName)->first();
+
+            if ($tag) {
+                $tags[] = $tag->id;
+            }
+
+            if (!$tag) {
+                $tag = new TagsBlog();
+                $tag->tags = $tagName;
+                $tag->save();
+
+                $tags[] = $tag->id;
+            }
+        }
+
+        $data->tags()->sync($tags);
 
         return redirect()->route('recentblog.index')->with('success','Data Updated Successfully');
     }

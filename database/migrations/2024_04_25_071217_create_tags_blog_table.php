@@ -15,7 +15,7 @@ class CreateTagsBlogTable extends Migration
     {
         Schema::create('tags_blog', function (Blueprint $table) {
             $table->id();
-            $table->string('judul');
+            $table->string('tags');
             $table->timestamps();
         });
     }
