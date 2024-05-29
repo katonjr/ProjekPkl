@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AboutMe;
 use App\Models\Contact;
 use App\Models\ContactUs;
+use App\Models\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -64,8 +65,17 @@ class WebController extends Controller
         $newdata->nama=$request->nama;
         $newdata->email=$request->email;
         $newdata->pesan=$request->pesan;
-        $newdata->status= 1;
+        $newdata->status= ContactUs::UNREAD;
         $newdata->save();
+
+
+        // $log = new Log();  // Corrected variable initialization
+        // $log->nama_table = 'contact_us';
+        // $log->items = json_encode($newdata);  // Log the saved data
+        // $log->deskripsi = 'Incoming Email From User';
+        // $log->type = 'update';
+        // $log->save();
+
         // Session::flash('sukses','Pesan Anda Telah Terkirim');
         Alert::success('Horayy', 'Message Send Successfully');
         return redirect()->back();

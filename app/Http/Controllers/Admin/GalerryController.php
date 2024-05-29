@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Galerry;
+use App\Models\Log;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GalerryController extends Controller
 {
@@ -41,6 +43,16 @@ class GalerryController extends Controller
             'image' => $image,
         ]);
 
+
+        $log = new Log();
+        $log->nama_table = 'image';
+        $log->items = json_encode($request);
+        $log->deskripsi = 'Add New Image Galerry';
+        $log->type = 'create';
+        $log->user_id = Auth::user()->id;
+        $log->save();
+
+
         return redirect()->route('galerry.index')->with('success','Data Upload Successfully');
     }
 
@@ -74,17 +86,36 @@ class GalerryController extends Controller
 
         $data->save();
 
+        $log = new Log();
+        $log->nama_table = 'image';
+        $log->items = json_encode($request);
+        $log->deskripsi = 'Update Image Galerry';
+        $log->type = 'update';
+        $log->user_id = Auth::user()->id;
+        $log->save();
+
         return redirect()->route('galerry.index')->with('success','Data Updated Successfully');
     }
 
 
     public function destroy($id)
-    {
-        $data = Galerry::findOrFail($id);
-        $data->delete();
-        return redirect()->route('galerry.index')->with('success', 'Data Deleted Successfully ');
+{
+    $data = Galerry::findOrFail($id);
 
-    }
+    // Create a new log entry
+    $log = new Log();
+    $log->nama_table = 'image';
+    $log->items = json_encode($data);
+    $log->deskripsi = 'Delete Image Galerry';
+    $log->type = 'delete';
+    $log->user_id = Auth::user()->id;
+    $log->save();
+
+    // Delete the data after logging
+    $data->delete();
+
+    return redirect()->route('galerry.index')->with('success', 'Data Deleted Successfully');
+}
 
 
 

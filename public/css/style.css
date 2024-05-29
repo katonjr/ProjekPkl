@@ -616,7 +616,7 @@ footer .site-brand{
 
 /* ### GALLERY PAGE ### */
 header.header-sm{
-    min-height: 60vh;
+    min-height: 100vh;
 }
 /* gallery */
 .gallery-item{

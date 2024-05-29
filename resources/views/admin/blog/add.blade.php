@@ -68,16 +68,19 @@
                                 @enderror
 
                                 <div class="mb-3">
-                                    <label for="Judul Blog">Tags Blog</label>
-                                    <br>
-                                    <select class="form-select" id="tags_id" data-placeholder="pilih tags" multiple
-                                        name="tags_id[]">
+                                    <label for="Judul Blog" class="mb-2">Tags Blog</label>
+                                    <label></label>
+                                    <select name="tags_id[]" class="form-select  @error('tags_id[]')
+                                    is-invalid @enderror" id="tags_id" data-placeholder="pilih tags" multiple>
                                         <option value="">Pilih Tags</option>
                                         @foreach ($data['datatags'] as $tags)
                                         <option value="{{ $tags->tags }}">{{ $tags->tags }} </option>
                                         @endforeach
                                     </select>
                                 </div>
+                                @error('tags_id[]')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
 
                                 {{-- <div class="mb-3">
                                     <label for="Tags" class="form-label">Tambah Tags</label>
@@ -118,30 +121,30 @@
             theme: "bootstrap-5",
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),
-            closeOnSelect: false,
+            closeOnSelect: true,
             tags: true
         });
     </script>
 
 
     <script>
-            tinymce.init({
-                selector: 'textarea#deskripsi',
-                plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-                toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-                tinycomments_mode: 'embedded',
-                tinycomments_author: 'Author name',
-                mergetags_list: [{
-                        value: 'First.Name',
-                        title: 'First Name'
-                    },
-                    {
-                        value: 'Email',
-                        title: 'Email'
-                    },
-                ],
-                ai_request: (request, respondWith) => respondWith.string(() => Promise.reject(
-                    "See docs to implement AI Assistant")),
-            });
+        tinymce.init({
+            selector: 'textarea#deskripsi',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
+            mergetags_list: [{
+                    value: 'First.Name',
+                    title: 'First Name'
+                },
+                {
+                    value: 'Email',
+                    title: 'Email'
+                },
+            ],
+            ai_request: (request, respondWith) => respondWith.string(() => Promise.reject(
+                "See docs to implement AI Assistant")),
+        });
     </script>
     @endsection

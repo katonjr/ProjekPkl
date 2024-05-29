@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Mail\SendMail;
 use App\Models\ContactUs;
+use App\Models\Log;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class ContactUsController extends Controller
@@ -16,7 +18,8 @@ class ContactUsController extends Controller
 
     public function index()
     {
-        $data = ContactUs::where('status',1)->get();
+        $data = ContactUs::get();
+
         // dd($datas);
         return view('admin.contactus.list', compact('data'));
     }
@@ -24,7 +27,9 @@ class ContactUsController extends Controller
     public function show (Request $request, $id)
     {
         $data = ContactUs::find($id);
-        if($request->key == 'view'){
+        if($request->key == 'view')
+        {
+            ContactUs::where('id',$id)->update(['status' => ContactUs::READ]);
             return view('admin.contactus.show', compact('data'));
         }
         else
@@ -63,8 +68,17 @@ class ContactUsController extends Controller
     {
         $data = ContactUs::findOrFail($id);
         $data->delete();
+
+        $log = new Log();
+        $log->nama_table = 'contact_us';
+        $log->items = json_encode($data);
+        $log->deskripsi = 'Deleted Email Blog';
+        $log->type = 'delete';
+        $log->user_id = Auth::user()->id;
+        $log->save();
+
         return redirect()->route('contactus.index')
-                    ->with('success','User deleted successfully');
+        ->with('success','User deleted successfully');
 
     }
 

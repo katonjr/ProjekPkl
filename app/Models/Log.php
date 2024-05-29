@@ -5,14 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ContactUs extends Model
+class Log extends Model
 {
     use HasFactory;
-    protected $table = 'contact_us';
+
+    protected $table = 'log';
+
     protected $guarded = [];
 
 
-    public const READ      = 1;
-    public const UNREAD    = 0;
+    public function namauser()
+    {
+        return $this->hasOne(User::class,'id','user_id');
+    }
 
 }

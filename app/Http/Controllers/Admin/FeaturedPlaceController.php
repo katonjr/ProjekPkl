@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use App\Models\FeaturedPlace;
+use App\Models\Log;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 
 class FeaturedPlaceController extends Controller
@@ -37,7 +39,7 @@ class FeaturedPlaceController extends Controller
     $request->validate([
         'tempat' => 'required',
         'deskripsi' => 'required',
-        'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi untuk tipe dan ukuran gambar
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi untuk tipe dan ukuran gambar
     ]);
 
         $FeaturedPlace = new FeaturedPlace;
@@ -52,6 +54,15 @@ class FeaturedPlaceController extends Controller
             $file->move('uploads', $filename);
             $FeaturedPlace->image = $filename;
         }
+
+
+        $log = new Log();
+        $log->nama_table = 'featured_place';
+        $log->items = json_encode($request);
+        $log->deskripsi = 'Add New Featured Content';
+        $log->type = 'create';
+        $log->user_id = Auth::user()->id;
+        $log->save();
 
         $FeaturedPlace->save();
         return redirect('admin/featured/featuredplace')->with('success','Image Upload Successfully');
@@ -82,6 +93,14 @@ class FeaturedPlaceController extends Controller
             $FeaturedPlace->image = $filename;
         }
 
+        $log = new Log();
+        $log->nama_table = 'featured_place';
+        $log->items = json_encode($request);
+        $log->deskripsi = 'Update Featured Content';
+        $log->type = 'update';
+        $log->user_id = Auth::user()->id;
+        $log->save();
+
         $FeaturedPlace->save();
 
         return redirect('admin/featured/featuredplace')->with('success','Data Update Successfully');
@@ -103,6 +122,14 @@ class FeaturedPlaceController extends Controller
     {
         $featuredPlace = FeaturedPlace::findOrFail($id);
         $featuredPlace->delete();
+
+    $log = new Log();
+    $log->nama_table = 'featured_place';
+    $log->items = json_encode($featuredPlace);
+    $log->deskripsi = 'Delete Image Galerry';
+    $log->type = 'delete';
+    $log->user_id = Auth::user()->id;
+    $log->save();
         return redirect('admin/featured/featuredplace')->with('success', 'Data Successfully Deleted');
     }
 

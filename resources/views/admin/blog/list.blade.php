@@ -60,7 +60,7 @@
                     @endforeach --}}
 
                     @foreach ($row->tags as $tag)
-                        <p>{{ $tag->tags }}</p>
+                        <p>{!! Str::limit( $tag->tags,10 )!!}</p>
                     @endforeach
                 </td>
 

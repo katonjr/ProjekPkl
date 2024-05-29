@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use App\Models\Contact;
+use App\Models\Log;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ContactController extends Controller
 {
@@ -43,6 +45,14 @@ class ContactController extends Controller
         $datas->address = $request->address;
         $datas->email = $request->email;
         $datas->save();
+
+        $log = new Log();
+        $log->nama_table = 'contact';
+        $log->items = json_encode($request);
+        $log->deskripsi = 'Update Information Contact Blog';
+        $log->type = 'update';
+        $log->user_id = Auth::user()->id;
+        $log->save();
 
         // dd ($request->all(),$id);
 

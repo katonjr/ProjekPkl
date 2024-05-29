@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use App\Models\Category;
+use App\Models\Log;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -34,8 +36,16 @@ class CategoryController extends Controller
         $newdata = new Category;
         $newdata->nama_category=$request->nama_category;
         $newdata->save();
-        return redirect('admin/category')->with('success','Data Upload Successfully');
 
+        $log = new Log();
+        $log->nama_table = 'categories';
+        $log->items = json_encode($request);
+        $log->deskripsi = 'Add New Categories Content';
+        $log->type = 'create';
+        $log->user_id = Auth::user()->id;
+        $log->save();
+
+        return redirect('admin/category')->with('success','Data Upload Successfully');
 
 
     }
@@ -71,6 +81,14 @@ class CategoryController extends Controller
         //contoh deklarasi data sendiri dengan banyak
         // Category::where('id',$id)->update(['nama_category'=>$request->nama_category]);
 
+        $log = new Log();
+        $log->nama_table = 'categories';
+        $log->items = json_encode($request);
+        $log->deskripsi = 'Update Categories Content';
+        $log->type = 'update';
+        $log->user_id = Auth::user()->id;
+        $log->save();
+
         return redirect('admin/category')->with('success','Data Update Successfully');
 
 
@@ -80,14 +98,20 @@ class CategoryController extends Controller
     {
         $data = Category::findOrFail($id);
         $data->delete();
+
+        $log = new Log();
+        $log->nama_table = 'categories';
+        $log->items = json_encode($data);
+        $log->deskripsi = 'Delete Categories Content';
+        $log->type = 'delete';
+        $log->user_id = Auth::user()->id;
+        $log->save();
+
         return redirect('admin/category')->with('success', 'Data Deleted Successfully ');
 
     }
 
-    public function show($id)
-    {
-        //
-    }
+
 
 
 

@@ -2,7 +2,7 @@
 @section('content')
 
     <div class="container content-container">
-        <div class="rows" style="padding-top: 70px">
+        <div class="rows" style="padding-top: 100px;display: flex;flex-wrap: wrap;align-content: stretch;justify-content: space-evenly;align-items: baseline;">
             <!-- Detail Blog -->
             <div class="col-lg-8">
                 <div class="blog-title">
@@ -320,10 +320,11 @@
 
 
                 </div>
+            </div>
 
 
-                <div class="tags">
-                    <h2>Tags:</h2>
+                <div class="tags col-lg-4">
+                    <h2>Tags Blog:</h2>
                     <a href="#" class="tag">Beach</a> &nbsp
                     <a href="#"class="tag">Sand</a>&nbsp
                     <a href="#"class="tag">Waves</a>&nbsp
@@ -341,12 +342,12 @@
                     <a href="#"class="tag">Secluded Beach</a>&nbsp
 
                 </div>
-
             </div>
 
 
+
             <!-- Recent Blog -->
-            <div class="col-lg-4 recent-blog">
+            <div class="col-lg-12 recent-blog">
                 <br>
                 <br>
                 <div class = "container">
@@ -397,7 +398,6 @@
                 <br>
                 <br>
             </div>
-        </div>
     </div>
 
 
@@ -417,5 +417,10 @@
 .navbar-cng #navbar-show-btn {
     color: white
 }
+</style>
+
+
+<style>
+
 </style>
 @endsection

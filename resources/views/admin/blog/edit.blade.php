@@ -122,14 +122,24 @@
 
 
         <script>
-            $('#tags_id').select2({
-                theme: "bootstrap-5",
-                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
-                    'style',
-                placeholder: $(this).data('placeholder'),
-                closeOnSelect: false,
-                tags: true
+            $(document).ready(function() {
+                $('#tags_id').select2({
+                    theme: "bootstrap-5",
+                    width: '100%',
+                    placeholder: 'Pilih Tags',
+                    closeOnSelect: true,
+                    tags: true
+                });
             });
         </script>
 
-        @endsection
+
+        <script>
+            tinymce.init({
+                selector: 'textarea#deskripsi',
+                plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+                toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            });
+        </script>
+
+@endsection

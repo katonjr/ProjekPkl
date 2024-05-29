@@ -68,5 +68,6 @@ Route::prefix('admin')->group(function(){
     //Tags Blog Route
     Route::resource('tagsblog', App\Http\Controllers\Admin\TagsBlogController::class);
 
+    Route::get('log', [App\Http\Controllers\Admin\LogController::class, 'index'])->name('log.index');
 
 });

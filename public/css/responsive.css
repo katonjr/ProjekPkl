@@ -78,7 +78,7 @@
 }
 @media screen and (min-width: 992px){
     .header-title h1{
-        font-size: 4rem;
+        font-size: 5.1rem;
     }
     .header-form form{
         -webkit-box-orient: horizontal;
@@ -111,13 +111,17 @@
         display: none;
     }
     .navbar-nav{
-        display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
         -webkit-box-pack: end;
             -ms-flex-pack: end;
                 justify-content: flex-end;
         margin: 0;
+        align-content: stretch;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: flex-end;
+        flex-wrap: wrap;
     }
     .nav-item{
         margin: 0;

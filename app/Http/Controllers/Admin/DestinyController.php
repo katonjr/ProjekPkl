@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Destiny;
+use App\Models\Log;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DestinyController extends Controller
 {
@@ -42,6 +44,14 @@ class DestinyController extends Controller
             'deskripsi' => $request->deskripsi
         ]);
 
+        $log = new Log();
+        $log->nama_table = 'destiny';
+        $log->items = json_encode($request);
+        $log->deskripsi = 'Add New Content Destination';
+        $log->type = 'create';
+        $log->user_id = Auth::user()->id;
+        $log->save();
+
         return redirect()->route('destiny.index')->with('success','Data Upload Successfully');
     }
 
@@ -77,6 +87,14 @@ class DestinyController extends Controller
         $data->deskripsi = $request->deskripsi;
         $data->save();
 
+        $log = new Log();
+        $log->nama_table = 'destiny';
+        $log->items = json_encode($request);
+        $log->deskripsi = 'Update Content Destination';
+        $log->type = 'update';
+        $log->user_id = Auth::user()->id;
+        $log->save();
+
         return redirect()->route('destiny.index')->with('success','Data Updated Successfully');
     }
 
@@ -84,6 +102,16 @@ class DestinyController extends Controller
     {
         $data = Destiny::findOrFail($id);
         $data->delete();
+
+        $log = new Log();
+        $log->nama_table = 'destiny';
+        $log->items = json_encode($data);
+        $log->deskripsi = 'Delete Content Destination';
+        $log->type = 'delete';
+        $log->user_id = Auth::user()->id;
+        $log->save();
+
+
         return redirect()->route('destiny.index')->with('success', 'Data Deleted Successfully ');
 
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\AboutMe;
+use App\Models\Log;
 use Illuminate\Http\Request;
 
 class AboutMeController extends Controller
@@ -49,9 +50,17 @@ class AboutMeController extends Controller
             $data->image = $filename;
         }
 
+
         $data->nama = $request->nama;
         $data->deskripsi = $request->deskripsi;
         $data->save();
+
+        $log = new Log();
+        $log->nama_table = 'about_me';
+        $log->items = json_encode($request);
+        $log->deskripsi = 'Update Information About Me';
+        $log->type = 'update';
+        $log->save();
 
         return redirect()->route('aboutme.index')->with('success','Data Updated Successfully');
     }
