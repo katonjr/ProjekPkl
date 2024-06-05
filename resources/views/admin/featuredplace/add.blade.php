@@ -33,8 +33,8 @@
 
                             <div class="mb-3">
                                 <label for="Deskripsi" class="form-label">Deskripsi Tempat</label>
-                                <input type="text" name="deskripsi" class="form-control @error('deskripsi')
-                                is-invalid @enderror" id="Deskripsi" aria-describedby="Tulis Deskripsi Tempat Anda">
+                                <textarea type="text" name="deskripsi" class="form-control @error('deskripsi')
+                                is-invalid @enderror" id="Deskripsi" aria-describedby="Tulis Deskripsi Tempat Anda"></textarea>
                             </div>
                             @error('deskripsi')
                             <div class="alert alert-danger">{{ $message }}</div>

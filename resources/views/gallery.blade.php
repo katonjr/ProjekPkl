@@ -21,64 +21,19 @@
 
     <div class="container">
         <div class="title-wrap">
-            <h2 class="sm-title">information</h2>
+            <h2 class="sm-title">Gallery</h2>
             <h3 class="lg-title">featured places</h3>
         </div>
+
         <div class="gallery-row">
+            @foreach ($datagallery as $gallery )
             <div class="gallery-item shadow">
-                <img src="images/gallery-1.jpg" alt="gallery img">
+                <img src="{{ asset('uploads/'.$gallery->image) }}" height="275px" alt="gallery img">
                 <span class="zoom-icon">
                     <i class="fas fa-search-plus"></i>
                 </span>
             </div>
-            <div class="gallery-item shadow">
-                <img src="images/gallery-2.jpg" alt="gallery img">
-                <span class="zoom-icon">
-                    <i class="fas fa-search-plus"></i>
-                </span>
-            </div>
-            <div class="gallery-item shadow">
-                <img src="images/gallery-3.jpg" alt="gallery img">
-                <span class="zoom-icon">
-                    <i class="fas fa-search-plus"></i>
-                </span>
-            </div>
-            <div class="gallery-item shadow">
-                <img src="images/gallery-4.jpg" alt="gallery img">
-                <span class="zoom-icon">
-                    <i class="fas fa-search-plus"></i>
-                </span>
-            </div>
-            <div class="gallery-item shadow">
-                <img src="images/gallery-5.jpg" alt="gallery img">
-                <span class="zoom-icon">
-                    <i class="fas fa-search-plus"></i>
-                </span>
-            </div>
-            <div class="gallery-item shadow">
-                <img src="images/gallery-6.jpg" alt="gallery img">
-                <span class="zoom-icon">
-                    <i class="fas fa-search-plus"></i>
-                </span>
-            </div>
-            <div class="gallery-item shadow">
-                <img src="images/gallery-7.jpg" alt="gallery img">
-                <span class="zoom-icon">
-                    <i class="fas fa-search-plus"></i>
-                </span>
-            </div>
-            <div class="gallery-item shadow">
-                <img src="images/gallery-8.jpg" alt="gallery img">
-                <span class="zoom-icon">
-                    <i class="fas fa-search-plus"></i>
-                </span>
-            </div>
-            <div class="gallery-item shadow">
-                <img src="images/gallery-9.jpg" alt="gallery img">
-                <span class="zoom-icon">
-                    <i class="fas fa-search-plus"></i>
-                </span>
-            </div>
+            @endforeach
         </div>
     </div>
 </div>
@@ -94,89 +49,22 @@
         </div>
 
         <div class="featured-row">
-            <div class="featured-item my-2 shadow">
-                <img src="images/featured-reo-de-janeiro-brazil.jpg" alt="featured place">
-                <div class="featured-item-content">
-                    <span>
-                        <i class="fas fa-map-marker-alt"></i>
-                        Reo De Janeiro, Brazil
-                    </span>
-                    <div>
-                        <p class="text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta sed dignissimos
-                            libero soluta illum, harum amet excepturi sit?</p>
-                    </div>
-                </div>
-            </div>
 
+            @foreach ($datafeatured as $featured )
             <div class="featured-item my-2 shadow">
-                <img src="images/featured-north-bondi-australia.jpg" alt="featured place">
+                <img src="{{ asset('uploads/'.$featured->image) }}" height="400px" alt="featured place">
                 <div class="featured-item-content">
                     <span>
                         <i class="fas fa-map-marker-alt"></i>
-                        North Bondi, Australia
+                       {{ $featured->tempat }}
                     </span>
                     <div>
-                        <p class="text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta sed dignissimos
-                            libero soluta illum, harum amet excepturi sit?</p>
+                        <p class="text">{{ $featured->deskripsi }}</p>
                     </div>
                 </div>
             </div>
+            @endforeach
 
-            <div class="featured-item my-2 shadow">
-                <img src="images/featured-berlin-germany.jpg" alt="featured place">
-                <div class="featured-item-content">
-                    <span>
-                        <i class="fas fa-map-marker-alt"></i>
-                        Berlin, Germany
-                    </span>
-                    <div>
-                        <p class="text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta sed dignissimos
-                            libero soluta illum, harum amet excepturi sit?</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="featured-item my-2 shadow">
-                <img src="images/featured-khwaeng-wat-arun-thailand.jpg" alt="featured place">
-                <div class="featured-item-content">
-                    <span>
-                        <i class="fas fa-map-marker-alt"></i>
-                        Khwaeng wat arun, thailand
-                    </span>
-                    <div>
-                        <p class="text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta sed dignissimos
-                            libero soluta illum, harum amet excepturi sit?</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="featured-item my-2 shadow">
-                <img src="images/featured-rome-italy.jpg" alt="featured place">
-                <div class="featured-item-content">
-                    <span>
-                        <i class="fas fa-map-marker-alt"></i>
-                        Rome, Italy
-                    </span>
-                    <div>
-                        <p class="text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta sed dignissimos
-                            libero soluta illum, harum amet excepturi sit?</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="featured-item my-2 shadow">
-                <img src="images/featured-fuvahmulah-maldives.jpg" alt="featured place">
-                <div class="featured-item-content">
-                    <span>
-                        <i class="fas fa-map-marker-alt"></i>
-                        fuvahmulah, maldives
-                    </span>
-                    <div>
-                        <p class="text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta sed dignissimos
-                            libero soluta illum, harum amet excepturi sit?</p>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </section>
@@ -207,135 +95,19 @@
         <h2 class="lg-title">Popular Places</h2>
     </div>
 
+
     <div class="popular-row">
+        @foreach ($datapopular as $popular )
         <div class="popular-item shadow">
-            <img src="images/popular-1.jpg" alt="">
+            <img src="{{ asset('uploads/'.$popular->image) }}" height="450px" alt="">
             <div>
-                <span>Eiffel Tower, Paris</span>
-                <ul class="rating flex">
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star-half-alt"></i></li>
-                    <li>&nbsp;400 reviews</li>
-                </ul>
-                <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, quia!</p>
+                <p class="text">{{ $popular->deskripsi}}</p>
             </div>
         </div>
-
-        <div class="popular-item shadow">
-            <img src="images/popular-2.jpg" alt="">
-            <div>
-                <span>Machu Picchu, Peru</span>
-                <ul class="rating flex">
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star-half-alt"></i></li>
-                    <li>&nbsp;400 reviews</li>
-                </ul>
-                <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, quia!</p>
-            </div>
-        </div>
-
-        <div class="popular-item shadow">
-            <img src="images/popular-3.jpg" alt="">
-            <div>
-                <span>Acropolis, Athens</span>
-                <ul class="rating flex">
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star-half-alt"></i></li>
-                    <li>&nbsp;400 reviews</li>
-                </ul>
-                <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, quia!</p>
-            </div>
-        </div>
-
-        <div class="popular-item shadow">
-            <img src="images/popular-4.jpg" alt="">
-            <div>
-                <span>Bali, Indonesia</span>
-                <ul class="rating flex">
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star-half-alt"></i></li>
-                    <li>&nbsp;400 reviews</li>
-                </ul>
-                <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, quia!</p>
-            </div>
-        </div>
-
-        <div class="popular-item shadow">
-            <img src="images/popular-5.jpg" alt="">
-            <div>
-                <span>Dubai, United Arab Emirates</span>
-                <ul class="rating flex">
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star-half-alt"></i></li>
-                    <li>&nbsp;400 reviews</li>
-                </ul>
-                <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, quia!</p>
-            </div>
-        </div>
-
-        <div class="popular-item shadow">
-            <img src="images/popular-6.jpg" alt="">
-            <div>
-                <span>Bhutan</span>
-                <ul class="rating flex">
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star-half-alt"></i></li>
-                    <li>&nbsp;400 reviews</li>
-                </ul>
-                <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, quia!</p>
-            </div>
-        </div>
-
-        <div class="popular-item shadow">
-            <img src="images/popular-7.jpg" alt="">
-            <div>
-                <span>Havana, Cuba</span>
-                <ul class="rating flex">
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star-half-alt"></i></li>
-                    <li>&nbsp;400 reviews</li>
-                </ul>
-                <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, quia!</p>
-            </div>
-        </div>
-
-        <div class="popular-item shadow">
-            <img src="images/popular-8.jpg" alt="">
-            <div>
-                <span>Moskva, Russia</span>
-                <ul class="rating flex">
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star-half-alt"></i></li>
-                    <li>&nbsp;400 reviews</li>
-                </ul>
-                <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, quia!</p>
-            </div>
-        </div>
+        @endforeach
     </div>
+
+
 </section>
 <!-- end of popular places section -->
 

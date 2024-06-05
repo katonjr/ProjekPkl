@@ -49,6 +49,14 @@ class RecentBlogController extends Controller
             // 'tags_id' => 'required|exists:tags_blog,id',
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string'
+        ],
+        [
+            'image.required' => 'Gambar Tidak Boleh Kosong',
+            'tanggal.required' => 'Tanggal Tidak Boleh Kosong',
+            'category_id.required' => 'Kategori Tidak Boleh Kosong',
+            'judul.required' => 'Judul Tidak Boleh Kosong',
+            'deskripsi.required' => 'Konten Tidak Boleh Kosong'
+
         ]);
 
         $tags       = implode(",",$request->tags_id);
@@ -196,7 +204,18 @@ class RecentBlogController extends Controller
         'category_id' => 'required|exists:categories,id',
         'judul' => 'required|string|max:255',
         'deskripsi' => 'required|string',
-    ]);
+
+    ],
+    [
+            'image.required' => 'Gambar Tidak Boleh Kosong',
+            'tanggal.required' => 'Tanggal Tidak Boleh Kosong',
+            'category_id.required' => 'Kategori Tidak Boleh Kosong',
+            'judul.required' => 'Judul Tidak Boleh Kosong',
+            'deskripsi.required' => 'Konten Tidak Boleh Kosong'
+
+        ]
+
+);
 
     $data = RecentBlog::findOrFail($id);
 

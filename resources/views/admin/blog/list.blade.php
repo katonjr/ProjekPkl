@@ -5,7 +5,7 @@
 <style>
     .judul {
         text-align: center;
-        margin-bottom: 20px;
+        margin-bottom: 30px;
         /* Menambahkan jarak bawah */
     }
 </style>
@@ -46,21 +46,17 @@
                 <td>{!! Str::limit ($row->deskripsi,20 )!!}</td>
                 <td>{{ $row->nama->name }}</td>
                 <td>
-                    {{-- memecah data --}}
-                    @php
-                        $namatags     = explode(',',$row->tags_id);
-                        $tag          = array();
-                        for($x=0;$x < count($namatags);$x++){
-                            $tag[]    = "<span class='badge badge-danger'>".\App\Models\RecentBlog::ambilnamatags($namatags[$x])."</span>";
-                        }
-                        $namatags     = $tag;
+                  @php
+                        // Counter for limiting the number of tags displayed
+                        $tagCount = 0;
                     @endphp
-                    {{-- @foreach ($namatags as $key => $tg)
-                        {!! $tg !!}
-                    @endforeach --}}
-
                     @foreach ($row->tags as $tag)
-                        <p>{!! Str::limit( $tag->tags,10 )!!}</p>
+                        @if ($tagCount < 6)
+                            <span class="badge badge-danger limited-text">{{ Str::limit($tag->tags, 10) }}</span>
+                            @php $tagCount++; @endphp
+                        @else
+                            @break
+                        @endif
                     @endforeach
                 </td>
 

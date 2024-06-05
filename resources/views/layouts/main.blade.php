@@ -94,28 +94,28 @@
                     <h2>Follow us on: </h2>
                     <ul class="social-links">
                         <li>
-                            <a href="#">
+                            <a href="https://www.facebook.com/profile.php?id=100013998197181">
                                 <i class="fab fa-facebook-f"></i>
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="https://www.instagram.com/katon_galih_/">
                                 <i class="fab fa-instagram"></i>
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="https://x.com/Katon_me/">
                                 <i class="fab fa-twitter"></i>
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="https://id.pinterest.com/neutralshop/">
                                 <i class="fab fa-pinterest"></i>
                             </a>
                         </li>
                         <li>
-                            <a href="#">
-                                <i class="fab fa-google-plus"></i>
+                            <a href="https://www.youtube.com/@galiharts539">
+                                <i class="fab fa-youtube"></i>
                             </a>
                         </li>
                     </ul>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AboutMe;
 use App\Models\Log;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AboutMeController extends Controller
 {
@@ -60,6 +61,7 @@ class AboutMeController extends Controller
         $log->items = json_encode($request);
         $log->deskripsi = 'Update Information About Me';
         $log->type = 'update';
+        $log->user_id = Auth::user()->id;
         $log->save();
 
         return redirect()->route('aboutme.index')->with('success','Data Updated Successfully');

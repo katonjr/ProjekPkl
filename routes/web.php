@@ -11,7 +11,7 @@ Route::get('/contact' ,[App\Http\Controllers\WebController::class, 'page']);
 Route::get('/gallery' , [App\Http\Controllers\WebController::class, 'page']);
 Route::get('/blog' ,[App\Http\Controllers\WebController::class, 'page']);
 Route::get('/detail' ,[App\Http\Controllers\WebController::class, 'page']);
-Route::get('/blog/{slug}' ,[App\Http\Controllers\WebController::class, 'page']);
+Route::get('/blog/{slug}' ,[App\Http\Controllers\WebController::class, 'detailblog']);
 Route::get('/sendmessage' ,[App\Http\Controllers\WebController::class, 'contactUs'])->name('sendmessage');
 Route::get('/{any}' ,[App\Http\Controllers\WebController::class, 'page']);
 

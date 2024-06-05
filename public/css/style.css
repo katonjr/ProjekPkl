@@ -143,7 +143,7 @@ header{
     text-align: center;
 }
 .header-title h1{
-    font-size: 5rem;
+    font-size: 4.5rem;
     letter-spacing: 2px;
     -webkit-animation: bounce-in-top 1.1s both;
             animation: bounce-in-top 1.1s both;
@@ -366,7 +366,7 @@ header{
 .featured-item-content span{
     font-size: 1.2rem;
     display: block;
-    margin-bottom: 1.2rem;
+    margin-bottom: 5.5rem;
     text-transform: capitalize;
 }
 .featured-item-content .text{
@@ -796,7 +796,8 @@ header.header-sm{
     width: 100%; /* Mengisi lebar parent (container) */
     height: auto;
     display: block; /* Membuat gambar menjadi elemen block */
-    max-width: none; /* Menghapus batasan maksimum lebar gambar */
+    max-width: none;
+    margin-top: 45px; /* Menghapus batasan maksimum lebar gambar */
 }
 
 /* Mengatur responsivitas gambar pada layar kecil */

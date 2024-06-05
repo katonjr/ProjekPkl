@@ -49,20 +49,20 @@
                     <input type="text" name="nama" class="form-control  @error('nama')
                     is-invalid @enderror" placeholder="Your name">
                     @error('nama')
-                    <div class="alert alert-danger">{{ $message }}</div>
+                    <div class="alert alert-danger">Mohon Isikan Nama Anda</div>
                     @enderror
 
                     <input type="email" name="email" class="form-control @error('email')
                     is-invalid @enderror" placeholder="Your email">
                     @error('email')
-                    <div class="alert alert-danger">{{ $message }}</div>
+                    <div class="alert alert-danger">Mohon Masukan Email Anda</div>
                     @enderror
 
                     <textarea rows="4" name="pesan" class="form-control @error('pesan')
                     is-invalid @enderror" placeholder="Your message"
                         style="resize: none;"></textarea>
                     @error('pesan')
-                    <div class="alert alert-danger">{{ $message }}</div>
+                    <div class="alert alert-danger">Mohon Isi Pesan Anda</div>
                     @enderror
 
                     <br/>

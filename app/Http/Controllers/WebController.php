@@ -5,17 +5,24 @@ namespace App\Http\Controllers;
 use App\Models\AboutMe;
 use App\Models\Contact;
 use App\Models\ContactUs;
+use App\Models\Destiny;
+use App\Models\FeaturedPlace;
+use App\Models\Galerry;
 use App\Models\Log;
+use App\Models\RecentBlog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Str;
 
 class WebController extends Controller
 {
     public function index()
     {
+        $datablog = RecentBlog::get();
 
-        return view('index');
+        $datafeatured = FeaturedPlace::get();
+        return view('index',compact('datablog','datafeatured'));
     }
 
     public function page(Request $request)
@@ -27,28 +34,46 @@ class WebController extends Controller
             $dataabout = AboutMe::first();
             return view('about',compact('dataabout'));
             // return view('about');
-        }else
-        if($slug == 'gallery'){
-            return view('gallery');
+        }
 
-        }else
+
+        if($slug == 'gallery'){
+            $datagallery = Galerry::get();
+
+            $datapopular = Destiny::get();
+
+            $datafeatured = FeaturedPlace::get();
+            return view('gallery',compact('datagallery','datafeatured','datapopular'));
+
+        }
+
         if($slug == 'contact'){
 
             $datacontact = Contact::first();
             return view('contact',compact('datacontact'));
 
-        }else
-        if($slug == 'blog'){
-            return view('blog');
+        }
 
-        }else
+        if($slug == 'blog'){
+
+            $datablog = RecentBlog::where('judul','like','%'.$request->search.'%')->get();
+
+            return view('blog',compact('datablog'));
+
+        }
+
         if($slug == 'detail'){
             return view('detail');
 
-        }else{
-
-            return redirect('/');
         }
+            return redirect('/');
+    }
+
+    public function detailblog($slug)
+    {
+        $blog = RecentBlog::with('tags')->where('slug',$slug)->first();
+        $datablog = RecentBlog::get();
+        return view('detail',compact('blog','datablog'));
     }
 
 

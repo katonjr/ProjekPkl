@@ -27,8 +27,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Deskripsi Tempat</label>
-                                <input type="text" name="deskripsi" class="form-control" id="Deskripsi"
-                                    aria-describedby="Tulis Deskripsi Tempat Anda" value="{{ $data->deskripsi }}">
+                                <textarea type="text" name="deskripsi" class="form-control" id="Deskripsi"
+                                    aria-describedby="Tulis Deskripsi Tempat Anda" >{{ $data->deskripsi }}</textarea>
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
