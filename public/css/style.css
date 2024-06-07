@@ -356,6 +356,7 @@ header{
     color: #fff;
     width: 100%;
     padding: 1rem;
+    padding-top: 100px;
     -webkit-transform: translateY(68%);
         -ms-transform: translateY(68%);
             transform: translateY(68%);

@@ -5,8 +5,10 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Category;
 use App\Models\Log;
+use App\Models\RecentBlog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CategoryController extends Controller
 {
@@ -96,6 +98,13 @@ class CategoryController extends Controller
 
     public function destroy($id)
     {
+
+        $verif=RecentBlog::where('category_id',$id)->first();
+        if ($verif){
+            Alert::error('Data Tidak Bisa dihapus','kategori Telah Dipakai');
+            return redirect()->back();
+        }
+
         $data = Category::findOrFail($id);
         $data->delete();
 
@@ -107,6 +116,7 @@ class CategoryController extends Controller
         $log->user_id = Auth::user()->id;
         $log->save();
 
+        Alert::success('Data Telah dihapus','kategori Telah Dihapusk');
         return redirect('admin/category')->with('success', 'Data Deleted Successfully ');
 
     }

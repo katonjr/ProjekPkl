@@ -85,10 +85,7 @@
                                     name="tags_id[]">
                                     <option value="">Pilih Tags</option>
                                     @foreach ($datatag as $value )
-                                    {{-- <option value="{{ $value->id }}" @foreach ($valtags as $list => $valueid )
-                                    {{ ($value->id == $valueid) ? 'selected' : '' }} @endforeach>
-                                    {{  $value->tags }}
-                                    </option> --}}
+
                                     <option value="{{ $value->tags }}" @if (in_array($value->tags , $data->getTagsId()))
                                         selected @endif>{{ $value->tags }}</option>
                                     @endforeach

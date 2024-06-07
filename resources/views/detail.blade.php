@@ -43,7 +43,7 @@
             </div>
 
             <div class="container">
-                @foreach ($datablog->chunk(3) as $datablogs)
+                @foreach ($datablog->chunk(6) as $datablogs)
                 <div class="row">
                     @foreach ($datablogs as $blog)
                     <div class="col-lg-4 col-md-6 col-sm-6">
@@ -69,6 +69,23 @@
     <br>
     <br>
     <br>
+
+    <div class="col-lg-12 flex">
+    <div class="comment-form col-lg-11">
+        <h2>Leave a Comment</h2>
+        <form action="submit_comment.php" method="post">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    </div>
+
+
 </div>
 
 
@@ -96,6 +113,56 @@
 
 
 <style>
+    .comment-form {
+        background-color: #fff;
+        padding: 75px;
+        border-radius: 7px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 100px;
 
+    }
+
+    .comment-form h2 {
+        margin-top: -20px;
+        margin-bottom: 65px;
+        font-size: 35px;
+        align-items: center;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        color: #1ec6b6;
+    }
+
+    .comment-form label {
+        display: block;
+        margin-bottom: 5px;
+        color: #1ec6b6;
+    }
+
+    .comment-form input,
+    .comment-form textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        font-size: 14px;
+    }
+
+    .comment-form button {
+        display: inline-block;
+        background-color: #1ec6b6;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .comment-form button:hover {
+        background-color: #1ec6b6;
+    }
 </style>
+
 @endsection

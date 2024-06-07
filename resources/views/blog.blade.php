@@ -30,7 +30,8 @@
                 <div class="col-md-12 mb-4">
                     <form action="/blog" method="get">
                         <div class="search d-flex align-items-center">
-                            <input type="text" class="form-control" name="search" placeholder="Search Blog Article Here" value="{{request()->input('search')}}">
+                            <input type="text" class="form-control" name="search" placeholder="Search Blog Article Here"
+                                value="{{request()->input('search')}}">
                             <i class="fa fa-search ml-2"></i>
                             <button class="btn btn-primary ml-2">Search</button>
                         </div>
@@ -39,36 +40,38 @@
             </div>
         </div>
 
-@if ($datablog->isNotEmpty())
-<div class="container">
-    @foreach ($datablog->chunk(3) as $datablogs)
-    <div class="row">
-        @foreach ($datablogs as $blog)
-        <div class="col-lg-4 col-md-6 col-sm-6">
-            <div class="blog-item my-2 shadow">
-                <div class="blog-item-top">
-                    <img src="{{ asset('uploads/'.$blog->image) }}" alt="blog" height="300px">
-                    <span class="blog-date">{{ date('F d, Y', strtotime($blog->tanggal)) }}</span>
+        @if ($datablog->isNotEmpty())
+        <div class="container">
+            @foreach ($datablog->chunk(3) as $datablogs)
+            <div class="row">
+                @foreach ($datablogs as $blog)
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="blog-item my-2 shadow">
+                        <div class="blog-item-top">
+                            <img src="{{ asset('uploads/'.$blog->image) }}" alt="blog" height="300px">
+                            <span class="blog-date">{{ date('F d, Y', strtotime($blog->tanggal)) }}</span>
+                        </div>
+                        <div class="blog-item-bottom">
+                            <span>{{ $blog->namacategory->nama_category }} | {{ $blog->nama->name ?? '' }}</span>
+                            <a href="{{ url('blog/'. $blog->slug) }}">{{ $blog->judul }}</a>
+                            {{-- <p class="text">{!! Str::limit( $blog->deskripsi,20 )!!} </p> --}}
+                            <span>{!!Str::limit ($blog->deskripsi,50) !!}</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="blog-item-bottom">
-                    <span>{{ $blog->namacategory->nama_category }} | {{ $blog->nama->name ?? '' }}</span>
-                    <a href="{{ url('blog/'. $blog->slug) }}">{{ $blog->judul }}</a>
-                    {{-- <p class="text">{!! Str::limit( $blog->deskripsi,20 )!!} </p> --}}
-                    <span>{!!Str::limit ($blog->deskripsi,50) !!}</span>
-                </div>
+                @endforeach
+            </div>
+            @endforeach
+        </div>
+        @else
+        <div class="container">
+            <div class=" justify-content-center mt-3 mb-4">
+                <h1 class="hasilpencarian">------- Maaf Blog Tidak Ditemukan -------</h1>
             </div>
         </div>
-        @endforeach
-    </div>
-    @endforeach
-</div>
-@else
-<div class="container">
-<div class=" justify-content-center mt-3 mb-4">
-    <h1 class="hasilpencarian">------- Maaf Blog Tidak Ditemukan -------</h1>
-</div>
-</div>
-@endif
+        @endif
+
+
     </div>
 
     <style>
@@ -99,6 +102,8 @@
 
         }
     </style>
+
+
 </section>
 <!-- end of blog section -->
 

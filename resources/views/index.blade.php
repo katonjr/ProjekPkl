@@ -55,7 +55,7 @@
                     </div>
 
                     <div class="container">
-                        @foreach ($datablog->chunk(3) as $datablogs)
+                        @foreach ($datablog->chunk(6) as $datablogs)
                         <div class="row">
                             @foreach ($datablogs as $blog)
                                 <div class="col-lg-4 col-md-6 col-sm-6">
