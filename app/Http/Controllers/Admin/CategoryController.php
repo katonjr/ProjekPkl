@@ -116,7 +116,7 @@ class CategoryController extends Controller
         $log->user_id = Auth::user()->id;
         $log->save();
 
-        Alert::success('Data Telah dihapus','kategori Telah Dihapusk');
+        Alert::success('Data Telah dihapus','kategori Telah Dihapus');
         return redirect('admin/category')->with('success', 'Data Deleted Successfully ');
 
     }

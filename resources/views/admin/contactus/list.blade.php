@@ -16,11 +16,6 @@
 </div>
 <div class="table-container">
     <td colspan="5">
-        {{-- contoh routing pertama --}}
-        {{-- <a href="{{ url('category/create') }}" class="btn btn-primary mb-3" > Tambah + </a> --}}
-
-        {{-- contoh routing kedua --}}
-        {{-- <a href="{{ route('category.create') }}" class="btn btn-primary mb-3" > Tambah + </a> --}}
     </td>
     <table class="table table-bordered" border="1">
         <thead>
@@ -58,25 +53,7 @@
 
         </tbody>
     </table>
-
 </div>
-{{-- <!-- Modal -->
-    <div class="modal fade" id="viewmessage"  role="dialog" aria-labelledby="viewmessageLabel" aria-hidden="false">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="viewmessageLabel">Detail Pesan Masuk</h5>
-                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div id="pesanmasuk"></div>
-                </div>
-                <div class="modal-footer"><button class="btn btn-secondary tutuppesan" type="button"
-                        data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div> --}}
 
 
 

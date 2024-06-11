@@ -110,9 +110,10 @@
                             Contact
                         </a>
                         </a>
+
                         <a class="nav-link" href="{{url('admin/contactus')}}">
                             <div class="sb-nav-link-icon"><i class="fa fa-address-book"></i></div>
-                            Contact US &ensp; &ensp; &nbsp; &nbsp;
+                            Contact US &ensp; &ensp; &nbsp; &nbsp; &nbsp;
 
                             @php
                                 $inbox = \App\Models\ContactUs::where('status',0)->count();
@@ -126,15 +127,34 @@
                             @endif
 
                             <span class="sr-only">unread messages</span>
-
                         </a>
+
                         <a class="nav-link" href="{{ url('admin/aboutme') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-user-circle"></i></div>
                             About Me
                         </a>
+
                         <a class="nav-link" href="{{ url('admin/log') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-clock"></i></div>
                             Log
+                        </a>
+                        <a class="nav-link" href="{{ url('admin/comment') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-comment"></i></div>
+                            Comment &ensp; &ensp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+                            @php
+                                $inbox = \App\Models\Comment::where('status',0)->count();
+                            @endphp
+
+                            @if ($inbox == 0)
+                            @else
+                            <span class="badge badge-danger float-right">
+                                {{ $inbox }}
+                            </span>
+                            @endif
+
+                            <span class="sr-only">unread messages</span>
+
                         </a>
 
                     </div>

@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('content')
 
-<div class="container content-container">
+<div class="content-container">
     <div class="rows"
         style="padding-top: 100px;display: flex;flex-wrap: wrap;align-content: stretch;justify-content: space-evenly;align-items: baseline;">
         <!-- Detail Blog -->
@@ -32,7 +32,6 @@
     </div>
 
 
-
     <!-- Recent Blog -->
     <div class="col-lg-12 recent-blog">
         <br>
@@ -45,17 +44,17 @@
             <div class="container">
                 @foreach ($datablog->chunk(6) as $datablogs)
                 <div class="row">
-                    @foreach ($datablogs as $blog)
+                    @foreach ($datablogs as $blogItem)
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="blog-item my-2 shadow">
                             <div class="blog-item-top">
-                                <img src="{{ asset('uploads/'.$blog->image) }}" alt="blog" height="300px">
-                                <span class="blog-date">{{ date('F d, Y', strtotime($blog->tanggal)) }}</span>
+                                <img src="{{ asset('uploads/'.$blogItem->image) }}" alt="blog" height="300px">
+                                <span class="blog-date">{{ date('F d, Y', strtotime($blogItem->tanggal)) }}</span>
                             </div>
                             <div class="blog-item-bottom">
-                                <span>{{ $blog->namacategory->nama_category }} | {{ $blog->nama->name ?? '' }}</span>
-                                <a href="{{ url('blog/'. $blog->slug) }}">{{ $blog->judul }}</a>
-                                <span>{!!Str::limit ($blog->deskripsi,50) !!}</span>
+                                <span>{{ $blogItem->namacategory->nama_category }} | {{ $blogItem->nama->name ?? '' }}</span>
+                                <a href="{{ url('blog/'. $blogItem->slug) }}">{{ $blogItem->judul }}</a>
+                                <span>{!!Str::limit ($blogItem->deskripsi,50) !!}</span>
                             </div>
                         </div>
                     </div>
@@ -71,98 +70,124 @@
     <br>
 
     <div class="col-lg-12 flex">
-    <div class="comment-form col-lg-11">
-        <h2>Leave a Comment</h2>
-        <form action="submit_comment.php" method="post">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
+        <div class="comment-form col-lg-11">
+            <h2>Leave a Comment</h2>
+            <form class="form kolom" action="{{route('sendcomment')}}">
+                @csrf
+                <label for="name">Name:</label>
+                <input type="text" id="nama" name="nama" class="form-control" placeholder="Your Name" required>
+                <input type="text" name="blog_id" value="{{ $blog->id }}" hidden>
+                <label for="message">Message:</label>
+                <textarea id="message" name="pesan" class="form-control" rows="4" required></textarea>
 
-            <label for="message">Message:</label>
-            <textarea id="message" name="message" rows="4" required></textarea>
+                <button type="submit">Submit</button>
 
-            <button type="submit">Submit</button>
-        </form>
+            </form>
+
+            <br>
+            <hr >
+            <br>
+            <h2>Recent Comment</h2>
+            <div id="recent-comments">
+                @foreach($approvedComments as $comment)
+                <div>
+                    <strong>{{ $comment->nama }}</strong>
+                    <p>{{ $comment->pesan }}</p>
+                    <br>
+                </div>
+            @endforeach
+
+            </div>
+        </div>
     </div>
-    </div>
 
 
-</div>
+    <style>
+        .navbars {
+            background-color: #1ec6b6;
+        }
+
+        .navbar-cng .navbar-nav .nav-link {
+            color: white;
+        }
+
+        .navbar-cng .site-brand {
+            color: white;
+        }
+
+        .navbar-cng .site-brand span {
+            color: white;
+        }
+
+        .navbar-cng #navbar-show-btn {
+            color: white
+        }
+    </style>
 
 
-<style>
-    .navbars {
-        background-color: #1ec6b6;
-    }
+    <style>
+        .kolom {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            align-content: center;
+            justify-content: center;
+            align-items: flex-start;
+        }
 
-    .navbar-cng .navbar-nav .nav-link {
-        color: white;
-    }
+        .comment-form {
+            background-color: #fff;
+            padding: 75px;
+            border-radius: 7px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 100px;
 
-    .navbar-cng .site-brand {
-        color: white;
-    }
-
-    .navbar-cng .site-brand span {
-        color: white;
-    }
-
-    .navbar-cng #navbar-show-btn {
-        color: white
-    }
-</style>
+        }
 
 
-<style>
-    .comment-form {
-        background-color: #fff;
-        padding: 75px;
-        border-radius: 7px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        margin-bottom: 100px;
 
-    }
+        .comment-form h2 {
+            margin-top: -20px;
+            margin-bottom: 65px;
+            font-size: 35px;
+            align-items: center;
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            color: #1ec6b6;
+        }
 
-    .comment-form h2 {
-        margin-top: -20px;
-        margin-bottom: 65px;
-        font-size: 35px;
-        align-items: center;
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: center;
-        color: #1ec6b6;
-    }
+        .comment-form label {
+            display: block;
+            margin-bottom: 5px;
+            color: #1ec6b6;
+        }
 
-    .comment-form label {
-        display: block;
-        margin-bottom: 5px;
-        color: #1ec6b6;
-    }
+        .comment-form input,
+        .comment-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 14px;
+            color: #1ec6b6;
+        }
 
-    .comment-form input,
-    .comment-form textarea {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        font-size: 14px;
-    }
+        .comment-form button {
+            display: inline-block;
+            background-color: #1ec6b6;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 14px;
+        }
 
-    .comment-form button {
-        display: inline-block;
-        background-color: #1ec6b6;
-        color: white;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
-        font-size: 14px;
-    }
+        .comment-form button:hover {
+            background-color: #1ec6b6;
+        }
+    </style>
 
-    .comment-form button:hover {
-        background-color: #1ec6b6;
-    }
-</style>
-
-@endsection
+    @endsection

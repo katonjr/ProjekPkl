@@ -11,6 +11,7 @@ Route::get('/contact' ,[App\Http\Controllers\WebController::class, 'page']);
 Route::get('/gallery' , [App\Http\Controllers\WebController::class, 'page']);
 Route::get('/blog' ,[App\Http\Controllers\WebController::class, 'page']);
 Route::get('/detail' ,[App\Http\Controllers\WebController::class, 'page']);
+Route::get('/sendcomment' ,[App\Http\Controllers\WebController::class, 'comment'])->name('sendcomment');
 Route::get('/blog/{slug}' ,[App\Http\Controllers\WebController::class, 'detailblog']);
 Route::get('/sendmessage' ,[App\Http\Controllers\WebController::class, 'contactUs'])->name('sendmessage');
 Route::get('/{any}' ,[App\Http\Controllers\WebController::class, 'page']);
@@ -68,6 +69,14 @@ Route::prefix('admin')->group(function(){
     //Tags Blog Route
     Route::resource('tagsblog', App\Http\Controllers\Admin\TagsBlogController::class);
 
+    //Log Blog Route
     Route::get('log', [App\Http\Controllers\Admin\LogController::class, 'index'])->name('log.index');
+
+    //Comment Blog Route
+    Route::resource('comment', App\Http\Controllers\Admin\CommentController::class);
+
+
+    //Approved Comment Blog Route
+    Route::patch('comment/approve/{id}', [App\Http\Controllers\Admin\CommentController::class, 'approve'])->name('comment.approve');
 
 });

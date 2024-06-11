@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AboutMe;
+use App\Models\Comment;
 use App\Models\Contact;
 use App\Models\ContactUs;
 use App\Models\Destiny;
@@ -69,11 +70,46 @@ class WebController extends Controller
             return redirect('/');
     }
 
+
+    public function comment(Request $request)
+    {
+
+        $request->validate([
+            'nama' => 'required',
+            'pesan' => 'required|string'
+        ]);
+
+        Comment::create([
+            'nama' => $request->nama,
+            'pesan' => $request->pesan,
+            'status' => Comment::PENDING,
+            'recent_blog_id' =>  $request->blog_id
+        ]);
+
+
+        Alert::success('Horayy', 'Comment Send Successfully');
+        return redirect()->back();
+
+    }
+
+
+
+
+    public function showComments()
+    {
+        $approvedComments = Comment::approved();
+        return view('page.comments', compact('approvedComments'));
+    }
+
+
     public function detailblog($slug)
     {
         $blog = RecentBlog::with('tags')->where('slug',$slug)->first();
         $datablog = RecentBlog::get();
-        return view('detail',compact('blog','datablog'));
+        $approvedComments = Comment::where('recent_blog_id',$blog->id)
+        ->where('status', Comment::APPROVED)
+        ->get();
+        return view('detail',compact('blog','datablog','approvedComments'));
     }
 
 

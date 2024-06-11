@@ -9,10 +9,25 @@ use Illuminate\Http\Request;
 class LogController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
         $logs = Log::orderBy('created_at', 'desc')->paginate(20);
-    return view('admin.log.list', ['logs' => $logs]);
+
+        if($request->key=='view'){
+            // dd ($request->all());
+            $datalog = Log::find($request->iddetail);
+            return view('admin.log.view',compact('datalog'));
+        }
+        else{
+
+            return view('admin.log.list', ['logs' => $logs]);
+        }
+
+
     }
+
+
+
+
 
 }
