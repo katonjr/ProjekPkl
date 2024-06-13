@@ -39,16 +39,17 @@ class GalerryController extends Controller
             $image = $filename;
         }
 
-        Galerry::create([
+        $gambar=Galerry::create([
             'image' => $image,
         ]);
 
 
         $log = new Log();
         $log->nama_table = 'image';
-        $log->items = json_encode($request);
+        $log->items = json_encode($gambar);
         $log->deskripsi = 'Add New Image Galerry';
         $log->type = 'create';
+        $log->table_id = $gambar->id;
         $log->user_id = Auth::user()->id;
         $log->save();
 
@@ -88,9 +89,10 @@ class GalerryController extends Controller
 
         $log = new Log();
         $log->nama_table = 'image';
-        $log->items = json_encode($request);
+        $log->items = json_encode($data);
         $log->deskripsi = 'Update Image Galerry';
         $log->type = 'update';
+        $log->table_id = $id;
         $log->user_id = Auth::user()->id;
         $log->save();
 
@@ -108,6 +110,7 @@ class GalerryController extends Controller
     $log->items = json_encode($data);
     $log->deskripsi = 'Delete Image Galerry';
     $log->type = 'delete';
+    $log->table_id = $id;
     $log->user_id = Auth::user()->id;
     $log->save();
 

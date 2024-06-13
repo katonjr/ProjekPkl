@@ -51,6 +51,7 @@ class ContactController extends Controller
         $log->items = json_encode($request);
         $log->deskripsi = 'Update Information Contact Blog';
         $log->type = 'update';
+        $log->table_id = $id;
         $log->user_id = Auth::user()->id;
         $log->save();
 

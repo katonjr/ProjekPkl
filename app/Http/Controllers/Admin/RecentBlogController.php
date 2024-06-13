@@ -97,18 +97,21 @@ class RecentBlogController extends Controller
                 $tags[] = $tag->id;
             }
         }
+        $blog->tags()->sync($tags);
 
-        $blogLog = RecentBlog::with('tags')->find($blog->id);
+        $blogLog = RecentBlog::with(['tags','namacategory'])->find($blog->id);
 
         $log = new Log();
         $log->nama_table = 'recent_blogs';
         $log->items = json_encode($blogLog);
         $log->deskripsi = 'Create Blog Content';
         $log->type = 'create';
+        //tambahan controller
+        $log->table_id = $blogLog->id;
+
         $log->user_id = Auth::user()->id;
         $log->save();
 
-        $blog->tags()->sync($tags);
 
         return redirect()->route('recentblog.index')->with('success','Data Upload Successfully');
     }
@@ -131,70 +134,6 @@ class RecentBlogController extends Controller
     }
 
 
-
-    // public function update(Request $request, $id)
-    // {
-    //     $request->validate([
-    //         'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    //         'tanggal' => 'required|date',
-    //         'category_id' => 'required|exists:categories,id',
-    //         // 'tags_id' => 'required|exists:tags_blog,id',
-    //         'judul' => 'required|string|max:255',
-    //         'deskripsi' => 'required|string',
-    //     ]);
-
-    //     // dd($request->all());
-
-    //     $data = RecentBlog::findOrFail($id);
-
-    //     if($request->hasFile('image'))
-    //     {
-    //         $file = $request->file('image');
-    //         $extenstion = $file->getClientOriginalExtension();
-    //         $filename = time().'.'.$extenstion;
-    //         $file->move('uploads', $filename);
-    //         $data->image = $filename;
-    //     }
-
-    //     $data->tanggal = $request->tanggal;
-    //     $data->category_id = $request->category_id;
-    //     // $data->tags_id = $request->tags_id;
-    //     $data->judul = $request->judul;
-    //     $data->deskripsi = $request->deskripsi;
-    //     $data->save();
-
-    //     $tags = [];
-
-    //     foreach ($request->tags_id as $tagName) {
-    //         $tag = TagsBlog::where('tags', $tagName)->first();
-
-    //         if ($tag) {
-    //             $tags[] = $tag->id;
-    //         }
-
-    //         if (!$tag) {
-    //             $tag = new TagsBlog();
-    //             $tag->tags = $tagName;
-    //             $tag->save();
-
-    //             $tags[] = $tag->id;
-    //         }
-    //     }
-
-    //     $blogLog = RecentBlog::with('tags')->find($data->id);
-
-    //     $log = new Log();
-    //     $log->nama_table = 'recent_blogs';
-    //     $log->items = json_encode($blogLog);
-    //     $log->deskripsi = 'Update Blog Content';
-    //     $log->type = 'update';
-    //     $log->user_id = Auth::user()->id;
-    //     $log->save();
-
-    //     $data->tags()->sync($tags);
-
-    //     return redirect()->route('recentblog.index')->with('success','Data Updated Successfully');
-    // }
 
     public function update(Request $request, $id)
 {
@@ -244,13 +183,14 @@ class RecentBlogController extends Controller
     $data->tags()->sync($tags);
 
     // Mencatat update
-    $blogLog = RecentBlog::with('tags')->find($data->id);
+    $blogLog = RecentBlog::with(['tags','namacategory'])->find($data->id);
 
     $log = new Log();
     $log->nama_table = 'recent_blogs';
     $log->items = json_encode($blogLog);
     $log->deskripsi = 'Update Blog Content';
     $log->type = 'update';
+    $log->table_id = $blogLog->id;
     $log->user_id = Auth::user()->id;
     $log->save();
 
@@ -261,21 +201,28 @@ class RecentBlogController extends Controller
     public function destroy($id)
     {
         $data = RecentBlog::findOrFail($id);
-        $data->delete();
 
         $log = new Log();
         $log->nama_table = 'recent_blogs';
         $log->items = json_encode($data);
         $log->deskripsi = 'Delete Blog Content';
         $log->type = 'delete';
+        $log->table_id = $id;
         $log->user_id = Auth::user()->id;
         $log->save();
+
+        $data->delete();
         return redirect()->route('recentblog.index')->with('success', 'Data Deleted Successfully ');
 
     }
 
 
+    public function logdatarecentblog(Request $request, $id)
+    {
+       $data = Log::where('table_id', $id)->where('nama_table', 'recent_blogs')->orderByDesc('created_at')->get();
+        return view('admin.blog.show', compact('data'));
 
+    }
 
 
  }

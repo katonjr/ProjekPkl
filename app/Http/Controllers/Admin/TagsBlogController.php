@@ -37,9 +37,10 @@ class TagsBlogController extends Controller
 
         $log = new Log();
         $log->nama_table = 'tags_blog';
-        $log->items = json_encode($request);
+        $log->items = json_encode($newdata);
         $log->deskripsi = 'Add New Tags Content';
         $log->type = 'create';
+        $log->table_id = $newdata->id;
         $log->user_id = Auth::user()->id;
         $log->save();
 
@@ -77,16 +78,17 @@ class TagsBlogController extends Controller
         ];
 
         //contoh deklarasi data banyak dengan bulk data atau memanggil variabel yang telah diberikan rumus
-        TagsBlog::where('id',$id)->update($data);
+        $items=TagsBlog::where('id',$id)->update($data);
 
         //contoh deklarasi data sendiri dengan banyak
         // Category::where('id',$id)->update(['nama_category'=>$request->nama_category]);
 
         $log = new Log();
         $log->nama_table = 'tags_blog';
-        $log->items = json_encode($request);
+        $log->items = json_encode($items);
         $log->deskripsi = 'Update Tags Content';
         $log->type = 'update';
+        $log->table_id = $id;
         $log->user_id = Auth::user()->id;
         $log->save();
 
@@ -106,6 +108,7 @@ class TagsBlogController extends Controller
         $log->items = json_encode($data);
         $log->deskripsi = 'Delete Tags Content';
         $log->type = 'delete';
+        $log->table_id = $id;
         $log->user_id = Auth::user()->id;
         $log->save();
 

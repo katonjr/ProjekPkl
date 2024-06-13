@@ -39,16 +39,17 @@ class DestinyController extends Controller
             $image = $filename;
         }
 
-        Destiny::create([
+       $destinasi= Destiny::create([
             'image' => $image,
             'deskripsi' => $request->deskripsi
         ]);
 
         $log = new Log();
         $log->nama_table = 'destiny';
-        $log->items = json_encode($request);
+        $log->items = json_encode($destinasi);
         $log->deskripsi = 'Add New Content Destination';
         $log->type = 'create';
+        $log->table_id = $destinasi->id;
         $log->user_id = Auth::user()->id;
         $log->save();
 
@@ -89,9 +90,10 @@ class DestinyController extends Controller
 
         $log = new Log();
         $log->nama_table = 'destiny';
-        $log->items = json_encode($request);
+        $log->items = json_encode($data);
         $log->deskripsi = 'Update Content Destination';
         $log->type = 'update';
+        $log->table_id = $id;
         $log->user_id = Auth::user()->id;
         $log->save();
 
@@ -108,6 +110,7 @@ class DestinyController extends Controller
         $log->items = json_encode($data);
         $log->deskripsi = 'Delete Content Destination';
         $log->type = 'delete';
+        $log->table_id = $id;
         $log->user_id = Auth::user()->id;
         $log->save();
 

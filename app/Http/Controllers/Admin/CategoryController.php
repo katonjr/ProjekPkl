@@ -41,9 +41,10 @@ class CategoryController extends Controller
 
         $log = new Log();
         $log->nama_table = 'categories';
-        $log->items = json_encode($request);
+        $log->items = json_encode($newdata);
         $log->deskripsi = 'Add New Categories Content';
         $log->type = 'create';
+        $log->table_id = $newdata->id;
         $log->user_id = Auth::user()->id;
         $log->save();
 
@@ -78,16 +79,17 @@ class CategoryController extends Controller
         ];
 
         //contoh deklarasi data banyak dengan bulk data atau memanggil variabel yang telah diberikan rumus
-        Category::where('id',$id)->update($data);
+        $items = Category::where('id',$id)->update($data);
 
         //contoh deklarasi data sendiri dengan banyak
         // Category::where('id',$id)->update(['nama_category'=>$request->nama_category]);
 
         $log = new Log();
         $log->nama_table = 'categories';
-        $log->items = json_encode($request);
+        $log->items = json_encode($items);
         $log->deskripsi = 'Update Categories Content';
         $log->type = 'update';
+        $log->table_id = $id;
         $log->user_id = Auth::user()->id;
         $log->save();
 
@@ -106,15 +108,19 @@ class CategoryController extends Controller
         }
 
         $data = Category::findOrFail($id);
-        $data->delete();
 
         $log = new Log();
         $log->nama_table = 'categories';
         $log->items = json_encode($data);
         $log->deskripsi = 'Delete Categories Content';
         $log->type = 'delete';
+        $log->table_id = $id;
         $log->user_id = Auth::user()->id;
         $log->save();
+
+        $data->delete();
+
+
 
         Alert::success('Data Telah dihapus','kategori Telah Dihapus');
         return redirect('admin/category')->with('success', 'Data Deleted Successfully ');

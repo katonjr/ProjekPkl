@@ -54,17 +54,17 @@ class FeaturedPlaceController extends Controller
             $file->move('uploads', $filename);
             $FeaturedPlace->image = $filename;
         }
-
+        $FeaturedPlace->save();
 
         $log = new Log();
         $log->nama_table = 'featured_place';
-        $log->items = json_encode($request);
+        $log->items = json_encode($FeaturedPlace);
         $log->deskripsi = 'Add New Featured Content';
         $log->type = 'create';
+        $log->table_id = $FeaturedPlace->id;
         $log->user_id = Auth::user()->id;
         $log->save();
 
-        $FeaturedPlace->save();
         return redirect('admin/featured/featuredplace')->with('success','Image Upload Successfully');
 
     }
@@ -76,6 +76,10 @@ class FeaturedPlaceController extends Controller
     // dd($data);
     return view('admin.featuredplace.edit', compact('data'));
     }
+
+
+
+
 
 
     //Update Data Function
@@ -95,9 +99,10 @@ class FeaturedPlaceController extends Controller
 
         $log = new Log();
         $log->nama_table = 'featured_place';
-        $log->items = json_encode($request);
+        $log->items = json_encode($FeaturedPlace);
         $log->deskripsi = 'Update Featured Content';
         $log->type = 'update';
+        $log->table_id = $id;
         $log->user_id = Auth::user()->id;
         $log->save();
 
@@ -107,8 +112,6 @@ class FeaturedPlaceController extends Controller
 
 
     }
-
-
 
     //Delete Data
 
@@ -121,16 +124,24 @@ class FeaturedPlaceController extends Controller
     public function destroy($id)
     {
         $featuredPlace = FeaturedPlace::findOrFail($id);
-        $featuredPlace->delete();
 
-    $log = new Log();
-    $log->nama_table = 'featured_place';
-    $log->items = json_encode($featuredPlace);
-    $log->deskripsi = 'Delete Image Galerry';
-    $log->type = 'delete';
-    $log->user_id = Auth::user()->id;
-    $log->save();
+        $log = new Log();
+        $log->nama_table = 'featured_place';
+        $log->items = json_encode($featuredPlace);
+        $log->deskripsi = 'Delete Image Galerry';
+        $log->type = 'delete';
+        $log->table_id = $id;
+        $log->user_id = Auth::user()->id;
+        $log->save();
+
+        $featuredPlace->delete();
         return redirect('admin/featured/featuredplace')->with('success', 'Data Successfully Deleted');
+    }
+    public function logdatafeatured(Request $request, $id)
+    {
+       $data = Log::where('table_id', $id)->where('nama_table', $request->nama_table)->orderByDesc('created_at')->get();
+        return view('admin.featuredplace.show', compact('data'));
+
     }
 
 }

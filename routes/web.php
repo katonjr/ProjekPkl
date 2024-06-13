@@ -44,13 +44,16 @@ Route::prefix('admin')->group(function(){
     Route::post('featured/insertdatafeatured', [App\Http\Controllers\Admin\FeaturedPlaceController::class, 'insertdatafeatured'])->name('featured.store');
     Route::get('featured/tampildatafeatured/{id}', [App\Http\Controllers\Admin\FeaturedPlaceController::class, 'tampildatafeatured'])->name('tampildatafeatured');
     Route::post('featured/updatedatafeatured/{id}', [App\Http\Controllers\Admin\FeaturedPlaceController::class, 'updatedatafeatured'])->name('updatedatafeatured');
+    Route::get('featured/logdatafeatured/{id}', [App\Http\Controllers\Admin\FeaturedPlaceController::class, 'logdatafeatured'])->name('logdatafeatured');
     Route::delete('featured/featuredplace/{id}', [App\Http\Controllers\Admin\FeaturedPlaceController::class, 'destroy'])->name('admin.destroy');
 
     // Category Route otomatis ngambil semua fungsi di controler
 
 
     //Recent Blog Route
+    Route::get('/recentblog/logdatarecentblog/{id}', [App\Http\Controllers\Admin\RecentBlogController::class, 'logdatarecentblog'])->name('recentblog.logdatarecentblog');
     Route::resource('recentblog', App\Http\Controllers\Admin\RecentBlogController::class);
+
 
     // Route::resource('contact', ContactController::class);
 

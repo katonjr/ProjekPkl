@@ -78,6 +78,7 @@ class CommentController extends Controller
         $log->items = json_encode($data);
         $log->deskripsi = 'Deleted Comment Blog';
         $log->type = 'delete';
+        $log->table_id = $id;
         $log->user_id = Auth::user()->id;
         $log->save();
 
