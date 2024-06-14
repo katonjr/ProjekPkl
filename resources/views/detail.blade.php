@@ -38,7 +38,7 @@
         <br>
         <div class="container">
             <div class="title-wrap">
-                <h3 class="lg-title">You Might Also Like</h3>
+                <h3 class="lg-title">Related Article<br>Maybe You Might Also Like</h3>
             </div>
 
             <div class="container">
@@ -126,6 +126,18 @@
 
 
     <style>
+
+    .blog-title h1{
+        font-size: 3rem;
+    }
+        .blog-content p {
+            font-size: 1.5rem;
+         }
+
+         .tags h2{
+            font-size: 2rem;
+         }
+
         .kolom {
             display: flex;
             flex-direction: column;
@@ -191,3 +203,5 @@
     </style>
 
     @endsection
+
+

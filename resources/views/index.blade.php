@@ -38,6 +38,8 @@
                     </div>
                 </div>
             </section>
+
+
             <!-- end of featured section -->
 
 
@@ -78,6 +80,12 @@
                     </div>
                 </div>
             </section>
+
+
+            <br/>
+            <br/>
+            <br/>
+
             <!-- end of blog section -->
 
 @endsection

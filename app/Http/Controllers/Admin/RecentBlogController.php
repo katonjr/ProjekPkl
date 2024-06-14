@@ -73,7 +73,6 @@ class RecentBlogController extends Controller
             'image' => $image,
             'tanggal' => $request->tanggal,
             'category_id' => $request->category_id,
-            // 'tags_id' => $tags,
             'judul' => $request->judul,
             'slug' => Str::slug($request->judul,"-"),
             'deskripsi' => $request->deskripsi,

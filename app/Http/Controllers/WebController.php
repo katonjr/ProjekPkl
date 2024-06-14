@@ -38,15 +38,27 @@ class WebController extends Controller
         }
 
 
-        if($slug == 'gallery'){
-            $datagallery = Galerry::get();
+        // if($slug == 'gallery'){
+        //     $datagallery = Galerry::get();
 
+        //     $datapopular = Destiny::get();
+
+        //     $datafeatured = FeaturedPlace::get();
+        //     return view('gallery',compact('datagallery','datafeatured','datapopular'));
+
+        // }
+        if ($slug == 'gallery') {
+            $datagallery = Galerry::paginate(3);
             $datapopular = Destiny::get();
-
             $datafeatured = FeaturedPlace::get();
-            return view('gallery',compact('datagallery','datafeatured','datapopular'));
 
+            if (request()->ajax()) {
+                return view('partials.gallery-items', compact('datagallery'))->render();
+            }
+
+            return view('gallery', compact('datagallery', 'datafeatured', 'datapopular'));
         }
+
 
         if($slug == 'contact'){
 
@@ -105,7 +117,7 @@ class WebController extends Controller
     public function detailblog($slug)
     {
         $blog = RecentBlog::with('tags')->where('slug',$slug)->first();
-        $datablog = RecentBlog::get();
+        $datablog = RecentBlog::where('category_id', $blog->category_id)->get();
         $approvedComments = Comment::where('recent_blog_id',$blog->id)
         ->where('status', Comment::APPROVED)
         ->get();

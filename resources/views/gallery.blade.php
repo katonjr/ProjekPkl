@@ -25,8 +25,8 @@
             <h3 class="lg-title">featured places</h3>
         </div>
 
-        <div class="gallery-row">
-            @foreach ($datagallery as $gallery )
+        <div class="gallery-row" id="gallery-row">
+            @foreach ($datagallery as $gallery)
             <div class="gallery-item shadow">
                 <img src="{{ asset('uploads/'.$gallery->image) }}" height="275px" alt="gallery img">
                 <span class="zoom-icon">
@@ -35,6 +35,13 @@
             </div>
             @endforeach
         </div>
+
+        @if ($datagallery->hasMorePages())
+        <div class="load-more-wrap text-center mt-4">
+            <button class="btn btn-primary" id="load-more" data-next-page="{{ $datagallery->currentPage() + 1 }}">Load More Image</button>
+        </div>
+        @endif
+
     </div>
 </div>
 <!-- end of gallery section -->
@@ -49,7 +56,6 @@
         </div>
 
         <div class="featured-row">
-
             @foreach ($datafeatured as $featured )
             <div class="featured-item my-2 shadow">
                 <img src="{{ asset('uploads/'.$featured->image) }}" height="400px" alt="featured place">
@@ -64,7 +70,6 @@
                 </div>
             </div>
             @endforeach
-
         </div>
     </div>
 </section>
@@ -83,7 +88,7 @@
         <button type="button" id="next-btn" class="flex">
             <i class="fas fa-chevron-right"></i>
         </button>
-        <img src="images/gallery-1.jpg">
+        <img src="{{  asset('uploads/'.$gallery->image)  }}">
     </div>
 </div>
 <!-- end of img modal -->
@@ -110,5 +115,43 @@
 
 </section>
 <!-- end of popular places section -->
+
+
+{{-- Script Load Image Pagination --}}
+<script>
+    document.getElementById('load-more').addEventListener('click', function() {
+        let button = this;
+        let nextPage = button.getAttribute('data-next-page');
+
+        button.disabled = true; // Disable button to prevent multiple clicks
+
+        fetch('{{ url()->current() }}?page=' + nextPage)
+            .then(response => response.text())
+            .then(data => {
+                let parser = new DOMParser();
+                let doc = parser.parseFromString(data, 'text/html');
+                let newItems = doc.querySelectorAll('.gallery-item');
+                let galleryRow = document.getElementById('gallery-row');
+
+                newItems.forEach(item => {
+                    galleryRow.appendChild(item);
+                });
+
+                button.disabled = false; // Re-enable the button
+
+                // Update next page number
+                button.setAttribute('data-next-page', parseInt(nextPage) + 1);
+
+                // Hide the button if there are no more pages
+                if (!doc.querySelector('.gallery-item')) {
+                    button.style.display = 'none';
+                }
+            })
+            .catch(error => {
+                console.error('Error loading more items:', error);
+                button.disabled = false; // Re-enable the button in case of error
+            });
+    });
+    </script>
 
 @endsection

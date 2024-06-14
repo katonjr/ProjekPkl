@@ -22,7 +22,9 @@ Tags :
 @endforeach
 {{-- {!! $en->tags !!} --}}
 <br>
-Nama Editor : {{ auth()->user()->name }}<br>
+
+{{-- Nama Editor : {{ auth()->user()->name }}<br> --}}
+
 <br>
 </div>
 <hr>
