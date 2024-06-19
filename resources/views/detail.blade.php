@@ -33,7 +33,7 @@
 
 
     <!-- Recent Blog -->
-    <div class="col-lg-12 recent-blog">
+    {{-- <div class="col-lg-12 recent-blog">
         <br>
         <br>
         <div class="container">
@@ -41,9 +41,9 @@
                 <h3 class="lg-title">Related Article<br>Maybe You Might Also Like</h3>
             </div>
 
-            <div class="container">
+            <section class="container">
                 @foreach ($datablog->chunk(6) as $datablogs)
-                <div class="row">
+                <div class="owl-carousel owl-theme">
                     @foreach ($datablogs as $blogItem)
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="blog-item my-2 shadow">
@@ -61,7 +61,36 @@
                     @endforeach
                 </div>
                 @endforeach
+            </section>
+        </div>
+    </div> --}}
+    <div class="col-lg-12 recent-blog">
+        <br>
+        <br>
+        <div class="container">
+            <div class="title-wrap">
+                <h3 class="lg-title">Related Article<br>Maybe You Might Also Like</h3>
             </div>
+
+            <section class="container">
+                <div class="owl-carousel owl-theme">
+                    @foreach ($datablog as $blogItem)
+                    <div class="item">
+                        <div class="blog-item my-2 shadow">
+                            <div class="blog-item-top">
+                                <img src="{{ asset('uploads/'.$blogItem->image) }}" alt="blog" height="300px">
+                                <span class="blog-date">{{ date('F d, Y', strtotime($blogItem->tanggal)) }}</span>
+                            </div>
+                            <div class="blog-item-bottom">
+                                <span>{{ $blogItem->namacategory->nama_category }} | {{ $blogItem->nama->name ?? '' }}</span>
+                                <a href="{{ url('blog/'. $blogItem->slug) }}">{{ $blogItem->judul }}</a>
+                                <span>{!! Str::limit($blogItem->deskripsi, 50) !!}</span>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </section>
         </div>
     </div>
 
@@ -91,7 +120,7 @@
             <div id="recent-comments">
                 @foreach($approvedComments as $comment)
                 <div>
-                    <strong>{{ $comment->nama }}</strong>
+                    <strong style="color: #1ec6b6">{{ $comment->nama }}</strong>
                     <p>{{ $comment->pesan }}</p>
                     <br>
                 </div>
@@ -201,6 +230,7 @@
             background-color: #1ec6b6;
         }
     </style>
+
 
     @endsection
 

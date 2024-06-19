@@ -7,6 +7,7 @@ use App\Models\Comment;
 use App\Models\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CommentController extends Controller
 {
@@ -91,6 +92,8 @@ class CommentController extends Controller
 {
     $comment = Comment::findOrFail($id);
     $comment->update(['status' => Comment::APPROVED]);
+
+    Alert::success('Success', 'Comment Approved');
 
     return redirect()->route('comment.index')->with('success', 'Comment Approved Successfully');
 }

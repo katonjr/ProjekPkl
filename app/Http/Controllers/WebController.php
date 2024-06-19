@@ -117,7 +117,10 @@ class WebController extends Controller
     public function detailblog($slug)
     {
         $blog = RecentBlog::with('tags')->where('slug',$slug)->first();
-        $datablog = RecentBlog::where('category_id', $blog->category_id)->get();
+        $datablog = RecentBlog::where('category_id', $blog->category_id)
+                          ->where('id', '!=', $blog->id)
+                          ->inRandomOrder()
+                          ->paginate(4);
         $approvedComments = Comment::where('recent_blog_id',$blog->id)
         ->where('status', Comment::APPROVED)
         ->get();

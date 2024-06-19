@@ -9,7 +9,10 @@ use App\Models\RecentBlog;
 use App\Models\TagsBlog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class RecentBlogController extends Controller
 {
@@ -36,6 +39,18 @@ class RecentBlogController extends Controller
 
     }
 
+    public  function compress_image($source_url, $destination_url, $quality) {
+        $info = getimagesize($source_url);
+            if ($info['mime'] == 'image/jpeg')
+                    $image = imagecreatefromjpeg($source_url);
+            elseif ($info['mime'] == 'image/gif')
+                    $image = imagecreatefromgif($source_url);
+            elseif ($info['mime'] == 'image/png')
+                    $image = imagecreatefrompng($source_url);
+            imagejpeg($image, $destination_url, $quality);
+        return $destination_url;
+    }
+
     public function store(Request $request)
     {
         // dd (Auth::user()->id);
@@ -43,7 +58,7 @@ class RecentBlogController extends Controller
         // sistem bulk data (dikumpulkan dan dieksekusi bersama)
 
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
             'tanggal' => 'required|date',
             'category_id' => 'required|exists:categories,id',
             // 'tags_id' => 'required|exists:tags_blog,id',
@@ -63,14 +78,18 @@ class RecentBlogController extends Controller
         if($request->hasfile('image'))
         {
             $file = $request->file('image');
+
             $extenstion = $file->getClientOriginalExtension();
-            $filename = time().'.'.$extenstion;
-            $file->move('uploads', $filename);
-            $image = $filename;
+
+            $upload_imagename = Str::slug($request->judul,"-").'.'.$extenstion;
+
+            $img = Image::make(file_get_contents($file));
+            $img->save(\public_path('uploads/'. $upload_imagename));
+
         }
 
        $blog = RecentBlog::create([
-            'image' => $image,
+            'image' => $upload_imagename,
             'tanggal' => $request->tanggal,
             'category_id' => $request->category_id,
             'judul' => $request->judul,
@@ -105,9 +124,8 @@ class RecentBlogController extends Controller
         $log->items = json_encode($blogLog);
         $log->deskripsi = 'Create Blog Content';
         $log->type = 'create';
-        //tambahan controller
+        //tambahan controller log
         $log->table_id = $blogLog->id;
-
         $log->user_id = Auth::user()->id;
         $log->save();
 
@@ -158,18 +176,26 @@ class RecentBlogController extends Controller
     $data = RecentBlog::findOrFail($id);
 
     if($request->hasFile('image'))
-    {
-        $file = $request->file('image');
-        $extension = $file->getClientOriginalExtension();
-        $filename = time().'.'.$extension;
-        $file->move('uploads', $filename);
-        $data->image = $filename;
-    }
 
-    $data->tanggal = $request->tanggal;
-    $data->category_id = $request->category_id;
-    $data->judul = $request->judul;
-    $data->deskripsi = $request->deskripsi;
+    {
+
+        // DELETE GAMBAR LAMA SAAT DI UPDATE
+        // File::delete(public_path('uploads/'.$data->image));
+
+        $file = $request->file('image');
+        $extenstion = $file->getClientOriginalExtension();
+
+        $upload_imagename = Str::slug($request->judul,"-").'.'.$extenstion;
+
+        $img = Image::make(file_get_contents($file));
+        $img->save(\public_path('uploads/'. $upload_imagename));
+        $data->image        = $upload_imagename;
+    }
+    $data->tanggal      = $request->tanggal;
+    $data->category_id  = $request->category_id;
+    $data->judul        = $request->judul;
+    $data->deskripsi    = $request->deskripsi;
+    $data->slug         = Str::slug($request->judul,"-");
     $data->save();
 
     $tags = [];
@@ -200,6 +226,7 @@ class RecentBlogController extends Controller
     public function destroy($id)
     {
         $data = RecentBlog::findOrFail($id);
+        File::delete(public_path('uploads/'.$data->image));
 
         $log = new Log();
         $log->nama_table = 'recent_blogs';
@@ -211,6 +238,7 @@ class RecentBlogController extends Controller
         $log->save();
 
         $data->delete();
+        Alert::success('Data Sukses Terhapus','artikel Telah Dihapus');
         return redirect()->route('recentblog.index')->with('success', 'Data Deleted Successfully ');
 
     }
