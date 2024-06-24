@@ -19,7 +19,7 @@
 
                 <label for="pesan" class="form-label">Pesan</label>
                 <textarea name="pesan"  id="pesan" class="form-control @error('pesan')
-                        is-invalid @enderror" id="pesan" aria-describedby="Pesan"></textarea>
+                        is-invalid @enderror" id="pesan" aria-describedby="Pesan" required></textarea>
                 <br>
                 @error('pesan')
                 <div class="alert alert-danger">{{ $message }}</div>

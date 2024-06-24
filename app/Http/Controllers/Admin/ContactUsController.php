@@ -9,6 +9,7 @@ use App\Models\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ContactUsController extends Controller
 {
@@ -50,13 +51,19 @@ class ContactUsController extends Controller
             'nama' => 'required',
             'email' => 'required|email',
             'pesan' => 'required'
-        ]);
+        ],
+        [
+                'pesan.required' => 'Pesan Tidak Boleh Kosong',
+            ]
+    );
 
         $details = [
             'balasan'  => $request->pesan
         ];
 
         Mail::to($request->email)->send(new SendMail($details));
+
+        Alert::success('Pesan Sukses Terkirim');
         return redirect()->route('contactus.index')->with('success','Balasan terkirim');
 
     }
@@ -78,6 +85,8 @@ class ContactUsController extends Controller
         $log->user_id = Auth::user()->id;
         $log->save();
 
+
+        Alert::success('Pesan Sukses Terhapus');
         return redirect()->route('contactus.index')
         ->with('success','User deleted successfully');
 

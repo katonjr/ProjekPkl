@@ -5,7 +5,7 @@
 <header class="flex header-sm">
     <div class="container">
         <div class="header-title">
-            <h1>Destination</h1>
+            <h1>Gallery</h1>
             <p>Some Recomendation Special <br> Destination For Information Your Trip</p>
         </div>
     </div>

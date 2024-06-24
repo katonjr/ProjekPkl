@@ -49,189 +49,189 @@
                         <div class="blog-item my-2 shadow">
                             <div class="blog-item-top">
                                 <img src="{{ asset('uploads/'.$blogItem->image) }}" alt="blog" height="300px">
-                                <span class="blog-date">{{ date('F d, Y', strtotime($blogItem->tanggal)) }}</span>
-                            </div>
-                            <div class="blog-item-bottom">
-                                <span>{{ $blogItem->namacategory->nama_category }} | {{ $blogItem->nama->name ?? '' }}</span>
-                                <a href="{{ url('blog/'. $blogItem->slug) }}">{{ $blogItem->judul }}</a>
-                                <span>{!!Str::limit ($blogItem->deskripsi,50) !!}</span>
-                            </div>
+    <span class="blog-date">{{ date('F d, Y', strtotime($blogItem->tanggal)) }}</span>
+</div>
+<div class="blog-item-bottom">
+    <span>{{ $blogItem->namacategory->nama_category }} | {{ $blogItem->nama->name ?? '' }}</span>
+    <a href="{{ url('blog/'. $blogItem->slug) }}">{{ $blogItem->judul }}</a>
+    <span>{!!Str::limit ($blogItem->deskripsi,50) !!}</span>
+</div>
+</div>
+</div>
+@endforeach
+</div>
+@endforeach
+</section>
+</div>
+</div> --}}
+<div class="col-lg-12 recent-blog">
+    <br>
+    <br>
+    <div class="container">
+        <div class="title-wrap">
+            <h3 class="lg-title">Related Article<br>Maybe You Might Also Like</h3>
+        </div>
+
+        <section class="container">
+            <div class="owl-carousel owl-theme">
+                @foreach ($datablog as $blogItem)
+                <div class="item">
+                    <div class="blog-item my-2 shadow">
+                        <div class="blog-item-top">
+                            <img src="{{ asset('uploads/'.$blogItem->image) }}" alt="blog" height="300px">
+                            <span class="blog-date">{{ date('F d, Y', strtotime($blogItem->tanggal)) }}</span>
+                        </div>
+                        <div class="blog-item-bottom">
+                            <span>{{ $blogItem->namacategory->nama_category }} |
+                                {{ $blogItem->nama->name ?? '' }}</span>
+                            <a href="{{ url('blog/'. $blogItem->slug) }}">{{ $blogItem->judul }}</a>
+                            <span>{!! Str::limit($blogItem->deskripsi, 50) !!}</span>
                         </div>
                     </div>
-                    @endforeach
                 </div>
                 @endforeach
-            </section>
-        </div>
-    </div> --}}
-    <div class="col-lg-12 recent-blog">
-        <br>
-        <br>
-        <div class="container">
-            <div class="title-wrap">
-                <h3 class="lg-title">Related Article<br>Maybe You Might Also Like</h3>
             </div>
-
-            <section class="container">
-                <div class="owl-carousel owl-theme">
-                    @foreach ($datablog as $blogItem)
-                    <div class="item">
-                        <div class="blog-item my-2 shadow">
-                            <div class="blog-item-top">
-                                <img src="{{ asset('uploads/'.$blogItem->image) }}" alt="blog" height="300px">
-                                <span class="blog-date">{{ date('F d, Y', strtotime($blogItem->tanggal)) }}</span>
-                            </div>
-                            <div class="blog-item-bottom">
-                                <span>{{ $blogItem->namacategory->nama_category }} | {{ $blogItem->nama->name ?? '' }}</span>
-                                <a href="{{ url('blog/'. $blogItem->slug) }}">{{ $blogItem->judul }}</a>
-                                <span>{!! Str::limit($blogItem->deskripsi, 50) !!}</span>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
-            </section>
-        </div>
+        </section>
     </div>
+</div>
 
-    <br>
-    <br>
-    <br>
+<br>
+<br>
+<br>
 
-    <div class="col-lg-12 flex">
-        <div class="comment-form col-lg-11">
-            <h2>Leave a Comment</h2>
-            <form class="form kolom" action="{{route('sendcomment')}}">
-                @csrf
-                <label for="name">Name:</label>
-                <input type="text" id="nama" name="nama" class="form-control" placeholder="Your Name" required>
-                <input type="text" name="blog_id" value="{{ $blog->id }}" hidden>
-                <label for="message">Message:</label>
-                <textarea id="message" name="pesan" class="form-control" rows="4" required></textarea>
+<div class="col-lg-12 flex">
+    <div class="comment-form col-lg-11">
+        <h2>Leave a Comment</h2>
+        <form class="form kolom" action="{{route('sendcomment')}}">
+            @csrf
+            <label for="name">Name:</label>
+            <input type="text" id="nama" name="nama" class="form-control" placeholder="Your Name" required>
+            <input type="text" name="blog_id" value="{{ $blog->id }}" hidden>
+            <label for="message">Message:</label>
+            <textarea id="message" name="pesan" class="form-control" rows="4" required></textarea>
 
-                <button type="submit">Submit</button>
+            <button type="submit">Submit</button>
 
-            </form>
+        </form>
 
-            <br>
-            <hr >
-            <br>
-            <h2>Recent Comment</h2>
-            <div id="recent-comments">
-                @foreach($approvedComments as $comment)
-                <div>
-                    <strong style="color: #1ec6b6">{{ $comment->nama }}</strong>
-                    <p>{{ $comment->pesan }}</p>
-                    <br>
-                </div>
+        <br>
+        <hr>
+        <br>
+        <h2>Recent Comment</h2>
+        <div id="recent-comments">
+            @foreach($approvedComments as $comment)
+            <div>
+                <strong style="color: #1ec6b6">{{ $comment->nama }}</strong>
+                <p>{{ $comment->pesan }}</p>
+                <br>
+            </div>
             @endforeach
 
-            </div>
         </div>
     </div>
+</div>
 
 
-    <style>
-        .navbars {
-            background-color: #1ec6b6;
-        }
-
-        .navbar-cng .navbar-nav .nav-link {
-            color: white;
-        }
-
-        .navbar-cng .site-brand {
-            color: white;
-        }
-
-        .navbar-cng .site-brand span {
-            color: white;
-        }
-
-        .navbar-cng #navbar-show-btn {
-            color: white
-        }
-    </style>
-
-
-    <style>
-
-    .blog-title h1{
-        font-size: 3rem;
+<style>
+    .navbars {
+        background-color: #1ec6b6;
     }
-        .blog-content p {
-            font-size: 1.5rem;
-         }
 
-         .tags h2{
-            font-size: 2rem;
-         }
+    .navbar-cng .navbar-nav .nav-link {
+        color: white;
+    }
 
-        .kolom {
-            display: flex;
-            flex-direction: column;
-            flex-wrap: wrap;
-            align-content: center;
-            justify-content: center;
-            align-items: flex-start;
-        }
+    .navbar-cng .site-brand {
+        color: white;
+    }
 
-        .comment-form {
-            background-color: #fff;
-            padding: 75px;
-            border-radius: 7px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 100px;
+    .navbar-cng .site-brand span {
+        color: white;
+    }
 
-        }
+    .navbar-cng #navbar-show-btn {
+        color: white
+    }
+</style>
 
 
+<style>
 
-        .comment-form h2 {
-            margin-top: -20px;
-            margin-bottom: 65px;
-            font-size: 35px;
-            align-items: center;
-            display: flex;
-            flex-wrap: nowrap;
-            justify-content: center;
-            color: #1ec6b6;
-        }
+    .blog-title h1 {
+        font-size: 35px;
+    }
 
-        .comment-form label {
-            display: block;
-            margin-bottom: 5px;
-            color: #1ec6b6;
-        }
+    .blog-content p {
+        font-size: 20px;
+    }
 
-        .comment-form input,
-        .comment-form textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            font-size: 14px;
-            color: #1ec6b6;
-        }
+    .tags h2 {
+        font-size: 35px;
+    }
 
-        .comment-form button {
-            display: inline-block;
-            background-color: #1ec6b6;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 14px;
-        }
+    .kolom {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: center;
+        align-items: flex-start;
+    }
 
-        .comment-form button:hover {
-            background-color: #1ec6b6;
-        }
-    </style>
+    .comment-form {
+        background-color: #fff;
+        padding: 75px;
+        border-radius: 7px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 100px;
+
+    }
 
 
-    @endsection
+
+    .comment-form h2 {
+        margin-top: -20px;
+        margin-bottom: 65px;
+        font-size: 35px;
+        align-items: center;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        color: #1ec6b6;
+    }
+
+    .comment-form label {
+        display: block;
+        margin-bottom: 5px;
+        color: #1ec6b6;
+    }
+
+    .comment-form input,
+    .comment-form textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        font-size: 14px;
+        color: #1ec6b6;
+    }
+
+    .comment-form button {
+        display: inline-block;
+        background-color: #1ec6b6;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .comment-form button:hover {
+        background-color: #1ec6b6;
+    }
+</style>
 
 
+@endsection

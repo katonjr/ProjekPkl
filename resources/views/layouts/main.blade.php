@@ -52,7 +52,7 @@
                         <a href="/" class="nav-link">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/gallery" class="nav-link">Destiny</a>
+                        <a href="/gallery" class="nav-link">Gallery</a>
                     </li>
                     <li class="nav-item">
                         <a href="/blog" class="nav-link">Blog</a>
@@ -127,13 +127,13 @@
                 </div>
 
                 <div class="footer-item">
-                    <h2>Popular Places:</h2>
+                    <h2>Navigation:</h2>
                     <ul>
-                        <li><a href="#">Thailand</a></li>
-                        <li><a href="#">Australia</a></li>
-                        <li><a href="#">Maldives</a></li>
-                        <li><a href="#">Switzerland</a></li>
-                        <li><a href="#">Germany</a></li>
+                        <li><a href="/" class="nav-link">Home</a></li>
+                        <li><a href="/gallery" class="nav-link">Gallery</a></li>
+                        <li><a href="/blog" class="nav-link">Blog</a></li>
+                        <li><a href="/about" class="nav-link">About</a></li>
+                        <li><a href="/contact" class="nav-link">Contact</a></li>
                     </ul>
                 </div>
 
